@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "template": {
+    "item": "invasioncodered:gash_upgrade_smithing_template"
+  },
+  "base": {
+    "item": "minecraft:netherite_boots"
+  },
+  "addition": {
+    "item": "invasioncodered:gash_ingot"
+  },
+  "result": {
+    "item": "invasioncodered:cursed_armor_boots"
+  }
+}

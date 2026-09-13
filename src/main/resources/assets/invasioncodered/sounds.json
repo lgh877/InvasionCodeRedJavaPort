@@ -1,0 +1,136 @@
+{
+  "gash_hurt": {
+    "subtitle": "subtitles.gash_hurt",
+    "sounds": [
+      {
+        "name": "invasioncodered:gash_hurt",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:gash_hurt2",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:gash_hurt3",
+        "stream": false
+      }
+    ]
+  },
+  "gash_idle": {
+    "subtitle": "subtitles.gash_idle",
+    "sounds": [
+      {
+        "name": "invasioncodered:gash_idle1",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:gash_idle2",
+        "stream": false
+      }
+    ]
+  },
+  "gash_dash": {
+    "subtitle": "subtitles.gash_dash",
+    "sounds": [
+      {
+        "name": "invasioncodered:gash_dash_move_sound1",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:gash_dash_move_sound2",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:gash_dash_move_sound3",
+        "stream": false
+      }
+    ]
+  },
+  "gash_death": {
+    "subtitle": "subtitles.gash_death",
+    "sounds": [
+      {
+        "name": "invasioncodered:gashslit_death",
+        "stream": false
+      }
+    ]
+  },
+  "gash_attack": {
+    "subtitle": "subtitles.gash_attack",
+    "sounds": [
+      {
+        "name": "invasioncodered:gash_slice1",
+        "stream": false
+      }
+    ]
+  },
+  "gash_slowattack": {
+    "subtitle": "subtitles.gash_slowattack",
+    "sounds": [
+      {
+        "name": "invasioncodered:gash_slice2",
+        "stream": false
+      }
+    ]
+  },
+  "gash_prepares_dash": {
+    "subtitle": "subtitles.gash_prepares_dash",
+    "sounds": [
+      {
+        "name": "invasioncodered:gashslit_charge",
+        "stream": false
+      }
+    ]
+  },
+  "gash_slash_barrage": {
+    "subtitle": "subtitles.gash_slash_barrage",
+    "sounds": [
+      {
+        "name": "invasioncodered:gash_slice3",
+        "stream": false
+      }
+    ]
+  },
+  "gash_barrage_prepare": {
+    "subtitle": "subtitles.gash_barrage_prepare",
+    "sounds": [
+      {
+        "name": "invasioncodered:gashslit_slashes",
+        "stream": false
+      }
+    ]
+  },
+  "gash_step": {
+    "subtitle": "subtitles.gash_step",
+    "sounds": [
+      {
+        "name": "minecraft:entity.warden.step",
+        "type": "event"
+      }
+    ]
+  },"gash_dragon_hurt": {
+    "subtitle": "subtitles.gash_dragon_hurt",
+    "sounds": [
+      {
+        "name": "minecraft:entity.ender_dragon.hurt",
+        "type": "event"
+      }
+    ]
+  },"gash_dragon_death": {
+    "subtitle": "subtitles.gash_dragon_death",
+    "sounds": [
+      {
+        "name": "minecraft:entity.ender_dragon.growl",
+        "type": "event"
+      }
+    ]
+  },"cursed_slash_shoot": {
+    "subtitle": "subtitles.cursed_slash_shoot",
+    "sounds": [
+      {
+        "name": "minecraft:item.trident.throw",
+        "type": "event"
+      }
+    ]
+  }
+}
