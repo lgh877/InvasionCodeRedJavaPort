@@ -31,12 +31,14 @@ public class CursedRageMobEffect extends MobEffect {
     @Override
     public void applyEffectTick(LivingEntity entity, int amplifier) {
         if((entity.tickCount & 7) == 0) {
-            ((ServerLevel) entity.level()).sendParticles(
-                    InvasioncoderedsweegyportModParticleTypes.GASHSLIT_POPFLAME_PARTICLE.get(),
-                    entity.getRandomX(entity.getBbWidth()),
-                    entity.getRandomY(),
-                    entity.getRandomZ(entity.getBbWidth()),
-                    (int) (entity.getBbWidth() * entity.getBbHeight() * 3), 0, 0, 0, 0);
+            if (!entity.level().isClientSide()) {
+                ((ServerLevel) entity.level()).sendParticles(
+                        InvasioncoderedsweegyportModParticleTypes.GASHSLIT_POPFLAME_PARTICLE.get(),
+                        entity.getRandomX(entity.getBbWidth()),
+                        entity.getRandomY(),
+                        entity.getRandomZ(entity.getBbWidth()),
+                        (int) (entity.getBbWidth() * entity.getBbHeight() * 3), 0, 0, 0, 0);
+            }
         }
     }
 }
