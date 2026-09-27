@@ -1,0 +1,43 @@
+{
+  "difficulty_multiplier": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "wave_multiplier": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "level_multiplier": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+  ],
+  "should_appear_only_once": false,
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "invasioncodered:gashslit",
+          "weight": 1,
+          "executed_commands": [
+            "attribute @s minecraft:generic.movement_speed base set 0.5"
+          ],
+          "count": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ]
+    }
+  ]
+}

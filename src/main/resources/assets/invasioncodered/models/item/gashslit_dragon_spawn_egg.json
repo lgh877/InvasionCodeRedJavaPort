@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "invasioncodered:item/dragon_spawn_egg"
+  }
+}

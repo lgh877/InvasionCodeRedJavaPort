@@ -1,0 +1,34 @@
+{
+  "parent": "invasioncodered:root",
+  "display": {
+    "icon": {
+      "item": "invasioncodered:gashslit_spawn_egg"
+    },
+    "title": {
+      "translate": "advancements.invasioncodered.kill_gashslit.title"
+    },
+    "description": {
+      "translate": "advancements.invasioncodered.kill_gashslit.descr"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "invasioncodered:gashslit": {
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "type": "invasioncodered:gashslit"
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:player_killed_entity"
+    }
+  }
+}

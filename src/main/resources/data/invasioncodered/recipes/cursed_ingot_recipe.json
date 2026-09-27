@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "aaa",
+    "abb",
+    "bb "
+  ],
+  "key": {
+    "a": {
+      "item": "minecraft:netherite_scrap"
+    },
+    "b": {
+      "item": "invasioncodered:red_coin"
+    }
+  },
+  "result": {
+    "item": "invasioncodered:gash_ingot",
+    "count": 1
+  }
+}
