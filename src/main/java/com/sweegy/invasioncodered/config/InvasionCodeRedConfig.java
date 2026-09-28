@@ -41,7 +41,7 @@ public class InvasionCodeRedConfig {
         ).defineList(
                 "Custom Raider List",
                 List.of(
-                        "invasioncodered:gashslit|0,0,0,0,0,0,0,0"
+                        "invasioncodered:gashslit|0,0,0,0,0,0,0,1"
                 ),
                 obj -> obj instanceof String && ((String) obj).contains("|")
         );
