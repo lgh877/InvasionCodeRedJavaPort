@@ -5,6 +5,7 @@ import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.entity.gashslit.GashslitEntity;
 import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModParticleTypes;
 import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModSounds;
+import com.sweegy.invasioncodered.util.OtherStuff;
 import com.sweegy.invasioncodered.util.ServerLevelRelatedUtils;
 import com.sweegy.invasioncodered.util.math.LaserHitbox;
 import net.minecraft.core.BlockPos;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
@@ -46,6 +48,13 @@ public class GashslitBarrageChargeAction {
             ServerLevelRelatedUtils.sendRayRandomSpread((ServerLevel) world, InvasioncoderedsweegyportModParticleTypes.GASHSLIT_SLASH_BARRAGE_PARTICLE.get(), mob.position(), lookVec, lookVec.length(), 1.5,
                     new Vec3(width * 0.5, mob.getBbHeight() * 0.5, width * 0.5), 1);
             mob.prevPos = mob.position();
+            if (mob.isIn2Phase() && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(mob.level(), mob)) {
+                for (BlockPos blockpos : hitbox.getIntersectingBlocks()) {
+                    BlockState blockstate = world.getBlockState(blockpos);
+                    if (OtherStuff.canDestroy(blockstate) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(mob, blockpos, blockstate))
+                        world.destroyBlock(blockpos, true, mob);
+                }
+            }
         } else {
             mob.setActionState(0);
             mob.setInAction(false);
