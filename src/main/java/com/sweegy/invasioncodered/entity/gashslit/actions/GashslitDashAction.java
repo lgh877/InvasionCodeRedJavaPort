@@ -5,7 +5,7 @@ import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.entity.gashslit.GashslitEntity;
 import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModParticleTypes;
 import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModSounds;
-import com.sweegy.invasioncodered.util.OtherStuff;
+import com.sweegy.invasioncodered.util.EntityUtil;
 import com.sweegy.invasioncodered.util.ServerLevelRelatedUtils;
 import com.sweegy.invasioncodered.util.math.LaserHitbox;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
@@ -54,7 +54,7 @@ public class GashslitDashAction {
             if (net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(mob.level(), mob)) {
                 for (BlockPos blockpos : hitbox.getIntersectingBlocks()) {
                     BlockState blockstate = world.getBlockState(blockpos);
-                    if (OtherStuff.canDestroy(blockstate) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(mob, blockpos, blockstate))
+                    if (EntityUtil.canDestroy(blockstate) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(mob, blockpos, blockstate))
                         world.destroyBlock(blockpos, true, mob);
                 }
             }

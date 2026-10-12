@@ -1,15 +1,20 @@
 package com.sweegy.invasioncodered.util;
 
+import com.sweegy.invasioncodered.entity.stonecutterman.StoneCutterManEntity;
+import com.sweegy.invasioncodered.util.math.VectorHelper;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.UUID;
 
-public class OtherStuff {
+public class EntityUtil {
 	public static boolean canDestroy(BlockState p_31492_) {
 		return !p_31492_.isAir() && !p_31492_.is(BlockTags.WITHER_IMMUNE);
 	}
@@ -36,5 +41,33 @@ public class OtherStuff {
             maxHealthAttr.addTransientModifier(new AttributeModifier(UUID.fromString("36b1441b-4dd7-4ba3-90a0-0618bb37dede"), "Health config multiplier", difference, AttributeModifier.Operation.ADDITION));
             entity.setHealth(entity.getMaxHealth());
         }
+    }
+
+    public void lookAt(PathfinderMob mob, Vec3 p_20034_, int limit) {
+        Vec3 vec3 = mob.getEyePosition();
+        double d0 = p_20034_.x - vec3.x;
+        double d1 = p_20034_.y - vec3.y;
+        double d2 = p_20034_.z - vec3.z;
+        double d3 = Math.sqrt(d0 * d0 + d2 * d2);
+        mob.setXRot(Mth.rotLerp(mob.getYRot(), Mth.wrapDegrees((float) (-(Mth.atan2(d1, d3) * (double) (180F / (float) Math.PI)))), limit));
+        mob.setYRot(Mth.rotLerp(mob.getYRot(), Mth.wrapDegrees((float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F), limit));
+        mob.setYHeadRot(mob.getYRot());
+        mob.xRotO = mob.getXRot();
+        mob.yRotO = mob.getYRot();
+        mob.yHeadRotO = mob.yHeadRot;
+        mob.yBodyRot = mob.yHeadRot;
+        mob.yBodyRotO = mob.yBodyRot;
+    }
+
+    public static void applyKnockback(LivingEntity livingEntity,
+                                      LivingEntity target, double knockback) {
+        Vec3 flatLookVec =
+                VectorHelper.calculateFlatViewVector(livingEntity.yBodyRot);
+
+        target.knockback(
+                knockback,
+                -flatLookVec.x(),
+                -flatLookVec.z()
+        );
     }
 }

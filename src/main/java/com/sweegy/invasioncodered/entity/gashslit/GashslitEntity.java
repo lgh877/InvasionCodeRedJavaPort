@@ -11,7 +11,7 @@ import com.sweegy.invasioncodered.entity.ai.actions.ActionCommand;
 import com.sweegy.invasioncodered.interfaces.FadingOutAnimation;
 import com.sweegy.invasioncodered.interfaces.IActionStateMob;
 import com.sweegy.invasioncodered.interfaces.IUsingFadingAnims;
-import com.sweegy.invasioncodered.util.OtherStuff;
+import com.sweegy.invasioncodered.util.EntityUtil;
 import com.sweegy.invasioncodered.util.ServerLevelRelatedUtils;
 import com.sweegy.invasioncodered.network.SyncBossBarRenderPacket;
 import com.sweegy.invasioncodered.util.animation.EntityModelCache;
@@ -26,7 +26,6 @@ import net.minecraftforge.network.PlayMessages;
 import net.minecraftforge.network.NetworkHooks;
 
 import net.minecraft.world.phys.Vec3;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.raid.Raider;
@@ -95,7 +94,7 @@ public class GashslitEntity extends Raider implements IActionStateMob, IUsingFad
     @Override
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34297_, DifficultyInstance p_34298_, MobSpawnType p_34299_, @Nullable SpawnGroupData p_34300_, @Nullable CompoundTag p_34301_) {
-        OtherStuff.setConfigattribute(this, InvasionCodeRedConfig.GASHSLIT_HEALTH_MULTIPLIER.get());
+        EntityUtil.setConfigattribute(this, InvasionCodeRedConfig.GASHSLIT_HEALTH_MULTIPLIER.get());
         return super.finalizeSpawn(p_34297_, p_34298_, p_34299_, p_34300_, p_34301_);
     }
 
@@ -131,7 +130,7 @@ public class GashslitEntity extends Raider implements IActionStateMob, IUsingFad
 			}
 		});
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, Player.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, LivingEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, AbstractVillager.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, IronGolem.class, true));
 		this.goalSelector.addGoal(1, new RandomStrollGoal(this, 1));

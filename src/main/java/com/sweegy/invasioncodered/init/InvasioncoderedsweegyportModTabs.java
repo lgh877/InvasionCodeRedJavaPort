@@ -29,5 +29,6 @@ public class InvasioncoderedsweegyportModTabs {
                 //spawneggs
 				tabData.accept(InvasioncoderedsweegyportModItems.GASHSLIT_SPAWN_EGG.get());
 				tabData.accept(InvasioncoderedsweegyportModItems.GASHSLIT_DRAGON_SPAWN_EGG.get());
+				tabData.accept(InvasioncoderedsweegyportModItems.STONE_CUTTER_MAN_SPAWN_EGG.get());
 			}).build());
 }

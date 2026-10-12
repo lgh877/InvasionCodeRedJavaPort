@@ -26,4 +26,7 @@ public class InvasioncoderedsweegyportModSounds {
     public static final RegistryObject<SoundEvent> CURSED_SLASH_SHOOT = REGISTRY.register("cursed_slash_shoot", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.tryParse("invasioncodered:cursed_slash_shoot")));
     public static final RegistryObject<SoundEvent> CURSED_ARMOR_EQUIP = REGISTRY.register("cursed_armor_equip", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.tryParse("invasioncodered:cursed_armor_equip")));
     public static final RegistryObject<SoundEvent> CURSED_RAGE_OCCUR = REGISTRY.register("cursed_rage_occur", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.tryParse("invasioncodered:cursed_rage_occur")));
+    public static final RegistryObject<SoundEvent> STONECUTTERMAN_HURT = REGISTRY.register("stonecutterman_hurt", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.tryParse("invasioncodered:stonecutterman_hurt")));
+    public static final RegistryObject<SoundEvent> STONECUTTERMAN_INTRO = REGISTRY.register("stonecutterman_intro", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.tryParse("invasioncodered:stonecutterman_intro")));
+    public static final RegistryObject<SoundEvent> STONECUTTERMAN_SPAM = REGISTRY.register("stonecutterman_spam", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.tryParse("invasioncodered:stonecutterman_spam")));
 }

@@ -1,6 +1,7 @@
 package com.sweegy.invasioncodered.client.model;
 
 import com.sweegy.invasioncodered.client.model.base.FadingAnimsModel;
+import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.util.animation.AnimUtil;
 import com.sweegy.invasioncodered.interfaces.FadingOutAnimation;
 import com.sweegy.invasioncodered.client.renderer.layer.IHierachicalHeadedModel;
@@ -19,9 +20,12 @@ import com.sweegy.invasioncodered.client.model.animations.gashslitAnimation;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+
 public class GashslitAnimatedModel extends Modelgashslit<GashslitEntity> implements ArmedModel, IHierachicalHeadedModel {
+
     public final ModelPart root;
     private final ModelPart[] allPartsFlat;
+
     private final FadingAnimsModel<GashslitEntity> animator = new FadingAnimsModel<>() {
         @Override
         public ModelPart root() {
@@ -31,26 +35,15 @@ public class GashslitAnimatedModel extends Modelgashslit<GashslitEntity> impleme
         @Override
         public void setupAnim(GashslitEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
             float partialTicks = ageInTicks - entity.tickCount;
-            int currentStep = (int) (ageInTicks * 3);
-
-            EntityModelCache cache = entity.getAnimCache();
-            List<ModelPart> allParts = this.root().getAllParts().toList();
-
-            if (currentStep != cache.lastAnimStep) {
-                allParts.forEach(ModelPart::resetPose);
-                for (ModelPart modelPart : allPartsFlat) {
-                    modelPart.resetPose();
-                }
-                float legAnimTicks = entity.getLegAnimTicks(partialTicks) * 0.2f;
-                this.applyFadingAnims(entity, partialTicks, GashslitAnimationIndex.anims);
-                AnimUtil.animateWalkAmplitude(this, gashslitAnimation.walk, limbSwing, 1f, (1f - legAnimTicks) * limbSwingAmount * 1.5f);
-                AnimUtil.animateWalkAmplitude(this, gashslitAnimation.run, limbSwing, 1.1f, legAnimTicks * limbSwingAmount * 1.5f);
-
-                cache.capture(allParts);
-                cache.lastAnimStep = currentStep;
-            } else {
-                cache.apply(allParts);
+            for (ModelPart part : allPartsFlat) {
+                part.resetPose();
             }
+
+            float legAnimTicks = entity.getLegAnimTicks(partialTicks) * 0.2f;
+            applyFadingAnims(entity, partialTicks, GashslitAnimationIndex.anims);
+
+            AnimUtil.animateWalkAmplitude(this, gashslitAnimation.walk, limbSwing, 1f, (1f - legAnimTicks) * limbSwingAmount * 1.5f);
+            AnimUtil.animateWalkAmplitude(this, gashslitAnimation.run, limbSwing, 1.1f, legAnimTicks * limbSwingAmount * 1.5f);
         }
 
         @Override
@@ -58,19 +51,28 @@ public class GashslitAnimatedModel extends Modelgashslit<GashslitEntity> impleme
             List<FadingOutAnimation> list = entity.getFadingAnims();
             float animTicks = entity.getAnimTicks(partialTicks);
             float progress = Mth.lerp(partialTicks, (float) entity.rageTicksO, (float) entity.rageTicks);
+
             if (progress > 0) {
-                progress *= 0.025;
+                progress *= 0.025f;
                 animateWalk(gashslitAnimation.ragepose, 1, progress, 1f, 1f);
             }
-            if (entity.getAnimIndex() != -1)
-                this.animateWalk(animations[entity.getAnimIndex()], animTicks, entity.getFadeInTime(partialTicks), 1f, 1f);
+
+            int index = entity.getAnimIndex();
+            if (index >= 0 && index < animations.length) {
+                animateWalk(animations[index], animTicks, entity.getFadeInTime(partialTicks), 1f, 1f);
+            }
+
             for (int i = list.size() - 1; i >= 0; i--) {
                 FadingOutAnimation anim = list.get(i);
                 if (anim.shouldBeRemoved) {
                     anim.cleanup();
                     continue;
                 }
-                this.animateWalk(animations[anim.animIdx], anim.finalTime, (float) Math.max(anim.remainingFadeOutTime - partialTicks * anim.fadeOutSpeed, 0) / anim.maxFadeOutTime, 1f, 1f);
+                if (anim.animIdx < 0 || anim.animIdx >= animations.length) continue;
+                if (anim.maxFadeOutTime <= 0) continue;
+
+                float weight = Math.max(anim.remainingFadeOutTime - partialTicks * anim.fadeOutSpeed, 0) / anim.maxFadeOutTime;
+                animateWalk(animations[anim.animIdx], anim.finalTime, weight, 1f, 1f);
             }
         }
     };
@@ -101,6 +103,7 @@ public class GashslitAnimatedModel extends Modelgashslit<GashslitEntity> impleme
         rightItemParticlePos.translateAndRotate(poseStack);
     }
 
+    @Override
     public void translateToHand(HumanoidArm arm, PoseStack poseStack) {
         root2.translateAndRotate(poseStack);
         whole.translateAndRotate(poseStack);
@@ -116,6 +119,7 @@ public class GashslitAnimatedModel extends Modelgashslit<GashslitEntity> impleme
         }
     }
 
+    @Override
     public void translateToHead(PoseStack poseStack) {
         root2.translateAndRotate(poseStack);
         whole.translateAndRotate(poseStack);
@@ -126,20 +130,30 @@ public class GashslitAnimatedModel extends Modelgashslit<GashslitEntity> impleme
 
     @Override
     public void setupAnim(GashslitEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        animator.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-        if(entity.isCelebrating()){
-            float $$11 = ageInTicks / 30.0F;
-            this.head.x += Mth.sin($$11 * 10.0F);
-            this.head.y += Mth.sin($$11 * 40.0F) + 0.4F;
-            this.rightArm.zRot += ((float)Math.PI / 180F) * (70.0F + Mth.cos($$11 * 40.0F) * 10.0F);
-            this.rightArm.xRot += ((float)Math.PI / 180F) * (Mth.cos($$11 * 10.0F) * 20.0F);
-            this.leftArm.zRot += this.rightArm.zRot * -1.0F;
-            this.leftArm.xRot += this.rightArm.xRot * -1.0F;
-            this.rightArm.y += Mth.sin($$11 * 40.0F) * 0.5F + 1.5F;
-            this.leftArm.y += Mth.sin($$11 * 40.0F) * 0.5F + 1.5F;
-            this.torso.zRot += ((float)Math.PI / 360F) * (Mth.cos($$11 * 10.0F) * 10.0F);
-            this.torso.y += Mth.sin($$11 * 40.0F) * 0.35F;
+        int currentStep = (int) (ageInTicks * InvasionCodeRedConfig.GASHSLIT_ANIM_FRAME.get() * 0.05f);
+
+        EntityModelCache cache = entity.getAnimCache();
+        if (!cache.canReuse(currentStep)) {
+            animator.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+            if (entity.isCelebrating()) {
+                float t = ageInTicks / 30.0f;
+                this.head.x += Mth.sin(t * 10.0f);
+                this.head.y += Mth.sin(t * 40.0f) + 0.4f;
+                this.rightArm.zRot += ((float) Math.PI / 180f) * (70.0f + Mth.cos(t * 40.0f) * 10.0f);
+                this.rightArm.xRot += ((float) Math.PI / 180f) * (Mth.cos(t * 10.0f) * 20.0f);
+                this.leftArm.zRot += this.rightArm.zRot * -1.0f;
+                this.leftArm.xRot += this.rightArm.xRot * -1.0f;
+                this.rightArm.y += Mth.sin(t * 40.0f) * 0.5f + 1.5f;
+                this.leftArm.y += Mth.sin(t * 40.0f) * 0.5f + 1.5f;
+                this.torso.zRot += ((float) Math.PI / 360f) * (Mth.cos(t * 10.0f) * 10.0f);
+                this.torso.y += Mth.sin(t * 40.0f) * 0.35f;
+            }
+            super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+            cache.capture(allPartsFlat);
+            cache.lastAnimStep = currentStep;
+            cache.markCaptured(currentStep);
+        } else {
+            cache.apply(allPartsFlat);
         }
-        super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
     }
 }

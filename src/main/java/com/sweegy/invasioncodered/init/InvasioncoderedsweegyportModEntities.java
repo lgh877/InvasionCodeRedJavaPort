@@ -1,5 +1,6 @@
 package com.sweegy.invasioncodered.init;
 
+import com.sweegy.invasioncodered.entity.stonecutterman.StoneCutterManEntity;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.DeferredRegister;
@@ -24,8 +25,10 @@ public class InvasioncoderedsweegyportModEntities {
 	public static final DeferredRegister<EntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, InvasioncoderedsweegyportMod.MODID);
 	public static final RegistryObject<EntityType<GashslitEntity>> GASHSLIT = register("gashslit",
 			EntityType.Builder.<GashslitEntity>of(GashslitEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(GashslitEntity::new).fireImmune()
-
 					.sized(0.6f, 2f));
+    public static final RegistryObject<EntityType<StoneCutterManEntity>> STONE_CUTTER_MAN = register("stone_cutter_man",
+			EntityType.Builder.<StoneCutterManEntity>of(StoneCutterManEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(StoneCutterManEntity::new)
+					.sized(0.7f, 2f));
 	public static final RegistryObject<EntityType<GashSlitSlashProjectileEntity>> GASH_SLIT_SLASH_PROJECTILE = register("gash_slit_slash_projectile",
 			EntityType.Builder.<GashSlitSlashProjectileEntity>of(GashSlitSlashProjectileEntity::new, MobCategory.MISC).setCustomClientFactory(GashSlitSlashProjectileEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
 					.setUpdateInterval(1).sized(0.5f, 0.5f));
@@ -56,5 +59,6 @@ public class InvasioncoderedsweegyportModEntities {
 	public static void registerAttributes(EntityAttributeCreationEvent event) {
 		event.put(GASHSLIT.get(), GashslitEntity.createAttributes().build());
 		event.put(GASHSLIT_DRAGON.get(), GashslitDragonEntity.createAttributes().build());
+		event.put(STONE_CUTTER_MAN.get(), StoneCutterManEntity.createAttributes().build());
 	}
 }

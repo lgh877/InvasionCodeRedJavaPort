@@ -3,7 +3,7 @@ package com.sweegy.invasioncodered.entity.gashslit;
 import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.entity.projectile.DamageConfigurableSmallFireballEntity;
 import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModSounds;
-import com.sweegy.invasioncodered.util.OtherStuff;
+import com.sweegy.invasioncodered.util.EntityUtil;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
@@ -73,7 +73,7 @@ public class GashslitDragonEntity extends Monster implements TraceableEntity {
     @Override
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34297_, DifficultyInstance p_34298_, MobSpawnType p_34299_, @Nullable SpawnGroupData p_34300_, @Nullable CompoundTag p_34301_) {
-        OtherStuff.setConfigattribute(this, InvasionCodeRedConfig.CURSED_DRAGON_HEALTH_MULTIPLIER.get(), InvasionCodeRedConfig.CURSED_DRAGON_DAMAGE_MULTIPLIER.get());
+        EntityUtil.setConfigattribute(this, InvasionCodeRedConfig.CURSED_DRAGON_HEALTH_MULTIPLIER.get(), InvasionCodeRedConfig.CURSED_DRAGON_DAMAGE_MULTIPLIER.get());
         return super.finalizeSpawn(p_34297_, p_34298_, p_34299_, p_34300_, p_34301_);
     }
 

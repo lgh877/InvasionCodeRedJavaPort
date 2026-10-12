@@ -1,6 +1,7 @@
 {
   "entity.invasioncodered.gashslit": "Gashslit",
   "item.invasioncodered.gashslit_spawn_egg": "Gashslit Spawn Egg",
+  "item.invasioncodered.stonecutterman_spawn_egg": "StoneCutterMan Spawn Egg",
   "subtitles.invasioncodered.gash_hurt": "Gashslit hurt",
   "subtitles.invasioncodered.gash_idle": "Gashslit breathes",
   "subtitles.invasioncodered.gash_slice": "Gashslit slashes",
@@ -39,5 +40,11 @@
   "advancements.invasioncodered.kill_gashslit.descr": "Kill Gashslit for a first time",
   "advancements.invasioncodered.adventure.root.title": "Welcome to Invasion Code Red",
   "subtitles.invasioncodered.cursed_rage_occur": "Cursed rage is activated",
-  "subtitles.invasioncodered.cursed_armor_equip": "Cursed armor is equipped"
+  "subtitles.invasioncodered.cursed_armor_equip": "Cursed armor is equipped",
+  "subtitles.invasioncodered.stonecutterman_hurt": "Stone Cutter Man hurts",
+  "subtitles.invasioncodered.stonecutterman_intro": "Stone Cutter Man screams",
+  "subtitles.invasioncodered.stonecutterman_spam": "Stone Cutter Man spams attacks",
+  "bossbar.invasioncodered.gashslit_bossbar_first" : "Gashslit",
+  "bossbar.invasioncodered.gashslit_bossbar_second" : "The Emperor",
+  "bossbar.invasioncodered.stonecutterman_bossbar" : "Stone Cutter Man"
 }

@@ -165,5 +165,52 @@
         "stream": false
       }
     ]
+  },
+  "stonecutterman_hurt": {
+    "subtitle": "subtitles.invasioncodered.stonecutterman_hurt",
+    "sounds": [
+      {
+        "name": "invasioncodered:stonecutterman_hurt1",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:stonecutterman_hurt2",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:stonecutterman_hurt3",
+        "stream": false
+      }
+    ]
+  },
+  "stonecutterman_intro": {
+    "subtitle": "subtitles.invasioncodered.stonecutterman_intro",
+    "sounds": [
+      {
+        "name": "invasioncodered:stonecutterman_intro2",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:stonecutterman_intro3",
+        "stream": false
+      }
+    ]
+  },
+  "stonecutterman_spam": {
+    "subtitle": "subtitles.invasioncodered.stonecutterman_spam",
+    "sounds": [
+      {
+        "name": "invasioncodered:stonecutterman_spam1",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:stonecutterman_spam2",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:stonecutterman_spam3",
+        "stream": false
+      }
+    ]
   }
 }

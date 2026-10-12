@@ -4,15 +4,17 @@ import com.mojang.logging.LogUtils;
 import com.sweegy.invasioncodered.interfaces.IRaidSpecialSpawns;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.apache.logging.log4j.core.jmx.Server;
 import org.slf4j.Logger;
 
 import java.util.List;
@@ -138,8 +140,13 @@ public final class SpecialRaiderSpawner {
 //
 //            return false;
 //        }
-        if(entity instanceof Raider raider) {
+        if (entity instanceof Raider raider) {
             raid.joinRaid(wave, raider, spawnPos, false);
+        } else if (entity instanceof Mob mob) {
+            mob.setPos((double) spawnPos.getX() + 0.5D, (double) spawnPos.getY() + 1.0D, (double) spawnPos.getZ() + 0.5D);
+            mob.finalizeSpawn((ServerLevelAccessor) raid.getLevel(), raid.getLevel().getCurrentDifficultyAt(spawnPos), MobSpawnType.EVENT, (SpawnGroupData) null, (CompoundTag) null);
+            mob.setOnGround(true);
+            ((ServerLevel) raid.getLevel()).addFreshEntityWithPassengers(mob);
         }
 
         executeCommands(entry.executedCommands, entity, level);

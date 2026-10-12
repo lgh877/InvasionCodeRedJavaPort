@@ -27,12 +27,19 @@ public class InvasioncoderedsweegyportModItems {
     public static final RegistryObject<Item> CURSED_ARMOR_LEGGINGS;
     public static final RegistryObject<Item> CURSED_ARMOR_BOOTS;
     public static final RegistryObject<Item> RED_COIN;
+    public static final RegistryObject<Item> STONE_CUTTER_MAN_SPAWN_EGG;
 
     static {
         GASHSLIT_SPAWN_EGG = REGISTRY.register("gashslit_spawn_egg", () -> new ForgeSpawnEggItem(InvasioncoderedsweegyportModEntities.GASHSLIT, -1, -1, new Item.Properties()) {
             @Override
             public Component getName(ItemStack stack) {
                 return ((MutableComponent) super.getName(stack)).withStyle(ChatFormatting.RED);
+            }
+        });
+        STONE_CUTTER_MAN_SPAWN_EGG = REGISTRY.register("stonecutterman_spawn_egg", () -> new ForgeSpawnEggItem(InvasioncoderedsweegyportModEntities.STONE_CUTTER_MAN, -1, -1, new Item.Properties()) {
+            @Override
+            public Component getName(ItemStack stack) {
+                return ((MutableComponent) super.getName(stack)).withStyle(ChatFormatting.DARK_GRAY);
             }
         });
         ROSE_DIAMOND_SWORD = REGISTRY.register("rose_diamond_sword", RoseDiamondSwordItem::new);

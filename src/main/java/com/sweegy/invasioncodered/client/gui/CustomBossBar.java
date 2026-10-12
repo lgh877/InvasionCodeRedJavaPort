@@ -1,5 +1,6 @@
 package com.sweegy.invasioncodered.client.gui;
 
+import net.minecraft.Util;
 import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 
 import net.minecraft.world.BossEvent;
@@ -24,12 +25,19 @@ public class CustomBossBar {
 	public static final int GASHSLIT_TITLE_OFFSET_Y = -3;
 	public static final float GASHSLIT_FONT_SCALE = 1.2F;
 	public static final float GASHSLIT_FILL_RATIO = 0.83F;
+    public static final int STONECUTTERMAN_BOSSBAR_HEIGHT = 16;
+	public static final int STONECUTTERMAN_BOSSBAR_WIDTH = 194;
+	public static final int STONECUTTERMAN_BOSSBAR_OFFSET_Y = -6;
+	public static final int STONECUTTERMAN_BOSSBAR_INCREMENT = 23;
+	public static final int STONECUTTERMAN_TITLE_OFFSET_Y = -3;
+	public static final float STONECUTTERMAN_FONT_SCALE = 1.2F;
+	public static final float STONECUTTERMAN_FILL_RATIO = 0.836F;
 	static {
 		// Create the custom colored title
-		Component gashslitTitle = Component.literal("Gashslit").//
+		Component gashslitTitle = Component.translatable(Util.makeDescriptionId("bossbar", ResourceLocation.tryParse("invasioncodered:gashslit_bossbar_first"))).//
 				withStyle(ChatFormatting.DARK_RED).//
 				append(Component.literal(" ")).//
-				append(Component.literal("The Emperor").//
+				append(Component.translatable(Util.makeDescriptionId("bossbar", ResourceLocation.tryParse("invasioncodered:gashslit_bossbar_second"))).//
 						withStyle(ChatFormatting.BLACK));
 		// Gashslit Bossbar for Phase 1
 		customBossBars.put(1, () -> new CustomBossBar(//
@@ -104,6 +112,20 @@ public class CustomBossBar {
                 GASHSLIT_FONT_SCALE, //
                 GASHSLIT_FILL_RATIO, //
                 40));
+        Component stoneCutterManTitle = Component.translatable(Util.makeDescriptionId("bossbar", ResourceLocation.tryParse("invasioncodered:stonecutterman_bossbar"))).//
+                withStyle(ChatFormatting.DARK_GRAY);
+        customBossBars.put(6, () -> new CustomBossBar(//
+                null, // baseTexture (Frame)
+                ResourceLocation.tryParse("invasioncodered:textures/screens/stonecutterman_bossbar.png"), // overlayTexture (Bars)
+                STONECUTTERMAN_BOSSBAR_WIDTH, // barWidth
+                STONECUTTERMAN_BOSSBAR_HEIGHT, // barHeight
+                STONECUTTERMAN_BOSSBAR_OFFSET_Y, // baseOffsetY
+                STONECUTTERMAN_BOSSBAR_INCREMENT, // verticalIncrement
+                stoneCutterManTitle, // customTitle
+                STONECUTTERMAN_TITLE_OFFSET_Y, // titleOffsetY
+                STONECUTTERMAN_FONT_SCALE, //
+                STONECUTTERMAN_FILL_RATIO //
+        ));
 	}
 	private final ResourceLocation baseTexture;
 	private final ResourceLocation overlayTexture;
