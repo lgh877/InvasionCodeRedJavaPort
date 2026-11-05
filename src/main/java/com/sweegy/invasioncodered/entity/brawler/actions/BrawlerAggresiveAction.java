@@ -6,11 +6,10 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
 
 public class BrawlerAggresiveAction {
     public static void execute(LevelAccessor world, BrawlerEntity mob, double x, double y, double z) {
-        if((mob.tickCount & 7) == 0){
+        if((mob.tickCount & 15) == 0){
             if(mob.blockAfterMelee){
                 mob.blockAfterMelee = false;
                 mob.setActionState(BrawlerAnimationIndex.anims_block);
@@ -27,7 +26,7 @@ public class BrawlerAggresiveAction {
                 if(flatDist < minDist + mob.getBbWidth() * 2 && yVailid){
                     mob.doHurtTarget(target);
                     mob.swing(InteractionHand.MAIN_HAND);
-                    mob.blockAfterMelee = mob.getRandom().nextFloat() > 0.6f;
+                    mob.blockAfterMelee = mob.getRandom().nextFloat() > 0.7f;
                 }else if(!yVailid || flatDist > minDist + mob.getBbWidth() * 12){
                     mob.setActionState(BrawlerAnimationIndex.anims_bowwalk);
                     mob.equipBow();

@@ -1,4 +1,4 @@
-package com.sweegy.invasioncodered.client.model;
+package com.sweegy.invasioncodered.client.model.unprocessed;
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.resources.ResourceLocation;

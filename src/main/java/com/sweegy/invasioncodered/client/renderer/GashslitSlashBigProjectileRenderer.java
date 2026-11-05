@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 
 import com.sweegy.invasioncodered.entity.projectile.GashslitSlashBigProjectileEntity;
-import com.sweegy.invasioncodered.client.model.Modelgashslit_slash;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit_slash;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;

@@ -1,4 +1,4 @@
-package com.sweegy.invasioncodered.client.model;// Made with Blockbench 5.1.3
+package com.sweegy.invasioncodered.client.model.unprocessed;// Made with Blockbench 5.1.3
 
 import net.minecraft.world.entity.Entity;
 import net.minecraft.resources.ResourceLocation;

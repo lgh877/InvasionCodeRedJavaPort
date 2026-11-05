@@ -1,4 +1,4 @@
-package com.sweegy.invasioncodered.client.model;
+package com.sweegy.invasioncodered.client.model.unprocessed;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

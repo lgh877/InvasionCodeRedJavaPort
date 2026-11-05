@@ -34,7 +34,7 @@ public class StoneCutterManRamMode1Action {
             if (actionTicks > 4) {
                 mob.setSprinting(true);
                 mob.actionProgress = 1;
-                mob.stoneCutterManMoveControl.rotationLimit = 40;
+                mob.stoneCutterManMoveControl.rotationLimit = 50;
             }
 
         } else if (mob.actionProgress == 1) {

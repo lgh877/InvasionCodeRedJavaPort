@@ -1,7 +1,7 @@
 package com.sweegy.invasioncodered.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sweegy.invasioncodered.client.model.Modelstonecutterman;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelstonecutterman;
 import com.sweegy.invasioncodered.client.model.StoneCutterManAnimatedModel;
 import com.sweegy.invasioncodered.client.renderer.layer.HierachicalHeadLayer;
 import com.sweegy.invasioncodered.entity.stonecutterman.StoneCutterManEntity;

@@ -6,11 +6,12 @@ import com.sweegy.invasioncodered.entity.ai.DoNothingGoal;
 import com.sweegy.invasioncodered.entity.ai.actions.ActionCommand;
 import com.sweegy.invasioncodered.entity.brawler.actions.BrawlerActions;
 import com.sweegy.invasioncodered.entity.brawler.actions.BrawlerPursuitGoal;
-import com.sweegy.invasioncodered.interfaces.FadingOutAnimation;
+import com.sweegy.invasioncodered.interfaces.SimpleFadingOutAnimation;
 import com.sweegy.invasioncodered.interfaces.IActionStateMob;
-import com.sweegy.invasioncodered.interfaces.IUsingFadingAnims;
+import com.sweegy.invasioncodered.interfaces.IUsingSimpleFadingAnims;
 import com.sweegy.invasioncodered.util.EntityUtil;
 import com.sweegy.invasioncodered.util.animation.EntityModelCache;
+import com.sweegy.invasioncodered.util.animation.SimpleFadingAnimationController;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -43,26 +44,23 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraftforge.network.PlayMessages;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
-public class BrawlerEntity extends Raider implements IActionStateMob, IUsingFadingAnims {
+public class BrawlerEntity extends Raider implements IActionStateMob, IUsingSimpleFadingAnims {
     private static final EntityDataAccessor<Integer> DATA_ACTION_STATE = SynchedEntityData.defineId(BrawlerEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> DATA_IN_ACTION = SynchedEntityData.defineId(BrawlerEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public int actionTicks, actionProgress, prevActionState;
+    public int actionTicks, actionProgress;
     public int rangedCooldown;
-    public int animIdx;
 
-    public int armAnimAmpO = 0, armAnimAmp = 0, legAnimAmpO = 0, legAnimAmp = 0,
-            animTicks = 0, animTicksO = 0, fadeInTicks = 5, fadeInTicksO = 5, nextBlockDuration;
+    public int armAnimAmpO = 0, armAnimAmp = 0, legAnimAmpO = 0, legAnimAmp = 0, nextBlockDuration;
 
     public boolean blockAfterMelee;
     private boolean cuccitaSpawned;
-    private boolean shouldUpdateAnim;
     private ActionCommand<BrawlerEntity> currentAction;
 
-    private final List<FadingOutAnimation> fadingAnims = new ArrayList<>();
+    // Client-side AnimationDefinition timer and exactly ONE outgoing animation.
+    private final SimpleFadingAnimationController simpleFade =
+            new SimpleFadingAnimationController(5.0F, 5.0F);
     private final EntityModelCache animCache = new EntityModelCache();
 
     public BrawlerEntity(PlayMessages.SpawnEntity packet, Level world) {
@@ -114,15 +112,6 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingFadi
     @Override
     public boolean isLeftHanded(){
         return false;
-    }
-
-    public void onSyncedDataUpdated(EntityDataAccessor<?> p_21104_) {
-        super.onSyncedDataUpdated(p_21104_);
-        if (level().isClientSide()) {
-            if (p_21104_.equals(DATA_ACTION_STATE)) {
-                shouldUpdateAnim = true;
-            }
-        }
     }
 
     @Override
@@ -179,23 +168,16 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingFadi
 //    }
 
     private void handleClientTick() {
-        if (shouldUpdateAnim) {
-            if (animTicks != 0 && prevActionState != 0)
-                getFadingAnims().add(new FadingOutAnimation(getFadingAnims(), animTicks, Math.min(animTicks, 5), prevActionState - 1));
-            prevActionState = animIdx = entityData.get(DATA_ACTION_STATE);
-            animTicks = animTicksO = fadeInTicks = fadeInTicksO = 0;
-            shouldUpdateAnim = false;
-        }
-
-        this.animTicksO = this.animTicks;
-        this.animTicks = this.animTicks + 1;
-        this.fadeInTicksO = this.fadeInTicks;
-        this.fadeInTicks = Math.min(this.fadeInTicks + 1, 5);
+        // Animation IDs in BrawlerAnimationIndex start at 1; the array is zero-based.
+        // State 0 (idle) maps to -1, allowing the previous action to fade out.
+        // transitionTo() ignores repeated IDs, so looping poses do NOT restart each tick.
+        simpleFade.transitionTo(getActionState() - 1);
+        simpleFade.tick();
 
         this.armAnimAmpO = this.armAnimAmp;
         this.legAnimAmpO = this.legAnimAmp;
 
-        switch(animIdx){
+        switch(getActionState()){
             case BrawlerAnimationIndex.anims_block:
             case BrawlerAnimationIndex.anims_bowstay:
                 armAnimAmp = Math.max(this.armAnimAmp - 1, 0);
@@ -217,9 +199,6 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingFadi
                 break;
         }
 
-        for (FadingOutAnimation anim : this.getFadingAnims()) {
-            anim.tick();
-        }
     }
 
     public float getArmAnimAmp(float partialTicks){
@@ -331,20 +310,30 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingFadi
 //        super.onAddedToWorld();
 //        if (!level().isClientSide() && getMainHandItem().isEmpty()) equipForMode();
 //    }
+    @Override
     public float getFadeInTime(float partialTicks) {
-        return Math.min(Mth.lerp(partialTicks, fadeInTicksO, fadeInTicks), 5) * 0.2f;
+        return simpleFade.getFadeInTime(partialTicks);
     }
 
+    @Override
     public float getAnimTicks(float partialTicks) {
-        return Mth.lerp(partialTicks, animTicksO, animTicks);
+        return simpleFade.getAnimTicks(partialTicks);
     }
 
+    @Override
     public int getAnimIndex() {
-        return animIdx - 1;
+        return simpleFade.getAnimIndex();
     }
 
-    public List<FadingOutAnimation> getFadingAnims() {
-        return fadingAnims;
+    @Override
+    @Nullable
+    public SimpleFadingOutAnimation getFadingOutAnimation() {
+        return simpleFade.getFadingOutAnimation();
+    }
+
+    @Override
+    public void setFadingOutAnimation(@Nullable SimpleFadingOutAnimation animation) {
+        simpleFade.setFadingOutAnimation(animation);
     }
 
     @Override

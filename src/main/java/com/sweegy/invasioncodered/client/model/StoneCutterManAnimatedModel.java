@@ -1,11 +1,10 @@
 package com.sweegy.invasioncodered.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sweegy.invasioncodered.client.model.animations.gashslitAnimation;
-import com.sweegy.invasioncodered.client.model.animations.indices.GashslitAnimationIndex;
 import com.sweegy.invasioncodered.client.model.animations.indices.StoneCutterManAnimationIndex;
 import com.sweegy.invasioncodered.client.model.animations.stonecuttermanAnimation;
 import com.sweegy.invasioncodered.client.model.base.FadingAnimsModel;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelstonecutterman;
 import com.sweegy.invasioncodered.client.renderer.layer.IHierachicalHeadedModel;
 import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.entity.stonecutterman.StoneCutterManEntity;

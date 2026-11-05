@@ -2,7 +2,7 @@ package com.sweegy.invasioncodered.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sweegy.invasioncodered.client.model.BrawlerAnimatedModel;
-import com.sweegy.invasioncodered.client.model.Modelbrawler;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelbrawler;
 import com.sweegy.invasioncodered.client.renderer.layer.HierachicalHeadLayer;
 import com.sweegy.invasioncodered.entity.brawler.BrawlerEntity;
 import net.minecraft.client.renderer.MultiBufferSource;

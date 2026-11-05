@@ -8,7 +8,7 @@ import net.minecraft.client.model.HierarchicalModel;
 
 import com.sweegy.invasioncodered.entity.gashslit.GashslitDragonEntity;
 import com.sweegy.invasioncodered.client.model.animations.gashslitdragonAnimation;
-import com.sweegy.invasioncodered.client.model.Modelgashslitdragon;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslitdragon;
 
 public class GashslitDragonRenderer extends MobRenderer<GashslitDragonEntity, Modelgashslitdragon<GashslitDragonEntity>> {
     private final ResourceLocation entityTexture = ResourceLocation.tryParse("invasioncodered:textures/entities/gashslitdragon.png");

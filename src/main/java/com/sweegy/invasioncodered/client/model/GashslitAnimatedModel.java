@@ -1,6 +1,7 @@
 package com.sweegy.invasioncodered.client.model;
 
 import com.sweegy.invasioncodered.client.model.base.FadingAnimsModel;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit;
 import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.util.animation.AnimUtil;
 import com.sweegy.invasioncodered.interfaces.FadingOutAnimation;

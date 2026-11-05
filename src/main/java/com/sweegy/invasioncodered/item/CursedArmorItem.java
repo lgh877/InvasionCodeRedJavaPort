@@ -1,6 +1,5 @@
 package com.sweegy.invasioncodered.item;
 
-import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;
 import com.sweegy.invasioncodered.init.CustomGlintRegistry;
 import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModAttributes;
@@ -12,7 +11,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
@@ -36,9 +34,9 @@ import java.util.Map;
 import java.util.Collections;
 
 import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModItems;
-import com.sweegy.invasioncodered.client.model.Modelgashslit_head_armor;
-import com.sweegy.invasioncodered.client.model.Modelgashslit_chestplate;
-import com.sweegy.invasioncodered.client.model.Modelgashslit_boots;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit_head_armor;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit_chestplate;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit_boots;
 import com.sweegy.invasioncodered.client.model.GashslitLeggingsAnimatedModel;
 
 public abstract class CursedArmorItem extends ArmorItem implements ICustomGlint {

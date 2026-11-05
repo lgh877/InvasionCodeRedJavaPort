@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.model.geom.ModelPart;
 
 import com.sweegy.invasioncodered.entity.gashslit.GashslitEntity;
-import com.sweegy.invasioncodered.client.model.Modelsusanogashslit;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelsusanogashslit;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;

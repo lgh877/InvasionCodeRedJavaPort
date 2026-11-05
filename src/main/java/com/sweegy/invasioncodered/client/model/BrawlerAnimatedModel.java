@@ -3,25 +3,23 @@ package com.sweegy.invasioncodered.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sweegy.invasioncodered.client.model.animations.indices.BrawlerAnimationIndex;
-import com.sweegy.invasioncodered.client.model.base.FadingAnimsModel;
+import com.sweegy.invasioncodered.client.model.base.SimpleFadingAnimsModel;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelbrawler;
 import com.sweegy.invasioncodered.client.renderer.layer.IHierachicalHeadedModel;
 import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.entity.brawler.BrawlerEntity;
-import com.sweegy.invasioncodered.interfaces.FadingOutAnimation;
 import com.sweegy.invasioncodered.util.animation.EntityModelCache;
-import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
-import java.util.List;
 
 public class BrawlerAnimatedModel extends Modelbrawler<BrawlerEntity> implements IHierachicalHeadedModel, ArmedModel {
     private final ModelPart root;
     private final ModelPart[] allPartsFlat;
 
-    private final FadingAnimsModel<BrawlerEntity> animator = new FadingAnimsModel<>() {
+    private final SimpleFadingAnimsModel<BrawlerEntity> animator = new SimpleFadingAnimsModel<>() {
         @Override
         public ModelPart root() { return root; }
 
@@ -35,29 +33,6 @@ public class BrawlerAnimatedModel extends Modelbrawler<BrawlerEntity> implements
             applyFadingAnims(entity, partialTicks, BrawlerAnimationIndex.anims);
         }
 
-        @Override
-        public void applyFadingAnims(BrawlerEntity entity, float partialTicks, AnimationDefinition[] animations) {
-            List<FadingOutAnimation> list = entity.getFadingAnims();
-            float animTicks = entity.getAnimTicks(partialTicks);
-            int index = entity.getAnimIndex();
-
-            if (index >= 0 && index < animations.length) {
-                animateWalk(animations[index], animTicks, entity.getFadeInTime(partialTicks), 1f, 1f);
-            }
-
-            for (int i = list.size() - 1; i >= 0; i--) {
-                FadingOutAnimation anim = list.get(i);
-                if (anim.shouldBeRemoved) {
-                    anim.cleanup();
-                    continue;
-                }
-                if (anim.animIdx < 0 || anim.animIdx >= animations.length) continue;
-                if (anim.maxFadeOutTime <= 0) continue;
-
-                float weight = Math.max(anim.remainingFadeOutTime - partialTicks * anim.fadeOutSpeed, 0) / anim.maxFadeOutTime;
-                animateWalk(animations[anim.animIdx], anim.finalTime, weight, 1f, 1f);
-            }
-        }
     };
 
     public BrawlerAnimatedModel(ModelPart root) {

@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 
 import com.sweegy.invasioncodered.entity.gashslit.GashslitEntity;
-import com.sweegy.invasioncodered.client.model.Modelgashslit;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit;
 import com.sweegy.invasioncodered.client.renderer.layer.HierachicalHeadLayer;
 import com.sweegy.invasioncodered.client.renderer.layer.GashslitSwordParticleLayer;
 import com.sweegy.invasioncodered.client.renderer.layer.GashslitSusanooLayer;

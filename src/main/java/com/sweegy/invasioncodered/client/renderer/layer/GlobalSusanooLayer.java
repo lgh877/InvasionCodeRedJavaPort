@@ -2,7 +2,7 @@ package com.sweegy.invasioncodered.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.sweegy.invasioncodered.client.model.Modelsusanogashslit;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelsusanogashslit;
 import com.sweegy.invasioncodered.client.renderer.CustomRenderTypes;
 import com.sweegy.invasioncodered.event.susanoo.SusanooAlphaManager;
 import net.minecraft.client.model.EntityModel;

@@ -1,5 +1,6 @@
 package com.sweegy.invasioncodered.init;
 
+import com.sweegy.invasioncodered.client.model.unprocessed.*;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.client.event.EntityRenderersEvent;

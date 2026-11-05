@@ -2,7 +2,7 @@ package com.sweegy.invasioncodered.event.susanoo;
 
 import com.mojang.logging.LogUtils;
 import com.sweegy.invasioncodered.InvasioncoderedsweegyportMod;
-import com.sweegy.invasioncodered.client.model.Modelsusanogashslit;
+import com.sweegy.invasioncodered.client.model.unprocessed.Modelsusanogashslit;
 import com.sweegy.invasioncodered.client.renderer.layer.GlobalSusanooLayer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.EntityType;
