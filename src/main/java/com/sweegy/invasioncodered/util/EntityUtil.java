@@ -43,20 +43,37 @@ public class EntityUtil {
         }
     }
 
-    public void lookAt(PathfinderMob mob, Vec3 p_20034_, int limit) {
+    public static void lookAt(PathfinderMob mob, Vec3 p_20034_, int limit) {
         Vec3 vec3 = mob.getEyePosition();
         double d0 = p_20034_.x - vec3.x;
         double d1 = p_20034_.y - vec3.y;
         double d2 = p_20034_.z - vec3.z;
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-        mob.setXRot(Mth.rotLerp(mob.getYRot(), Mth.wrapDegrees((float) (-(Mth.atan2(d1, d3) * (double) (180F / (float) Math.PI)))), limit));
-        mob.setYRot(Mth.rotLerp(mob.getYRot(), Mth.wrapDegrees((float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F), limit));
+        mob.setXRot(rotlerp(mob.getXRot(), Mth.wrapDegrees((float) (-(Mth.atan2(d1, d3) * (double) (180F / (float) Math.PI)))), limit));
+        mob.setYRot(rotlerp(mob.getYRot(), Mth.wrapDegrees((float) (Mth.atan2(d2, d0) * (double) (180F / (float) Math.PI)) - 90.0F), limit));
         mob.setYHeadRot(mob.getYRot());
         mob.xRotO = mob.getXRot();
         mob.yRotO = mob.getYRot();
         mob.yHeadRotO = mob.yHeadRot;
         mob.yBodyRot = mob.yHeadRot;
         mob.yBodyRotO = mob.yBodyRot;
+    }
+
+    public static float rotlerp(float p_24992_, float p_24993_, float p_24994_) {
+        float f = Mth.wrapDegrees(p_24993_ - p_24992_);
+        if (f > p_24994_) {
+            f = p_24994_;
+        }
+        if (f < -p_24994_) {
+            f = -p_24994_;
+        }
+        float f1 = p_24992_ + f;
+        if (f1 < 0.0F) {
+            f1 += 360.0F;
+        } else if (f1 > 360.0F) {
+            f1 -= 360.0F;
+        }
+        return f1;
     }
 
     public static void applyKnockback(LivingEntity livingEntity,

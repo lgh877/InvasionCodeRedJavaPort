@@ -27,9 +27,9 @@ public class CustomBossBar {
 	public static final float GASHSLIT_FILL_RATIO = 0.83F;
     public static final int STONECUTTERMAN_BOSSBAR_HEIGHT = 16;
 	public static final int STONECUTTERMAN_BOSSBAR_WIDTH = 194;
-	public static final int STONECUTTERMAN_BOSSBAR_OFFSET_Y = -6;
-	public static final int STONECUTTERMAN_BOSSBAR_INCREMENT = 23;
-	public static final int STONECUTTERMAN_TITLE_OFFSET_Y = -3;
+	public static final int STONECUTTERMAN_BOSSBAR_OFFSET_Y = 2;
+	public static final int STONECUTTERMAN_BOSSBAR_INCREMENT = 27;
+	public static final int STONECUTTERMAN_TITLE_OFFSET_Y = -10;
 	public static final float STONECUTTERMAN_FONT_SCALE = 1.2F;
 	public static final float STONECUTTERMAN_FILL_RATIO = 0.836F;
 	static {
@@ -113,7 +113,7 @@ public class CustomBossBar {
                 GASHSLIT_FILL_RATIO, //
                 40));
         Component stoneCutterManTitle = Component.translatable(Util.makeDescriptionId("bossbar", ResourceLocation.tryParse("invasioncodered:stonecutterman_bossbar"))).//
-                withStyle(ChatFormatting.DARK_GRAY);
+                withStyle(ChatFormatting.GRAY);
         customBossBars.put(6, () -> new CustomBossBar(//
                 null, // baseTexture (Frame)
                 ResourceLocation.tryParse("invasioncodered:textures/screens/stonecutterman_bossbar.png"), // overlayTexture (Bars)

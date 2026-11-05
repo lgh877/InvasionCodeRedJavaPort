@@ -3,12 +3,16 @@ package com.sweegy.invasioncodered.entity.stonecutterman;
 import com.sweegy.invasioncodered.client.model.animations.indices.GashslitAnimationIndex;
 import com.sweegy.invasioncodered.client.model.animations.indices.StoneCutterManAnimationIndex;
 import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
+import com.sweegy.invasioncodered.entity.ai.AvoidTargetGoal;
 import com.sweegy.invasioncodered.entity.ai.DoNothingGoal;
 import com.sweegy.invasioncodered.entity.ai.RecentAttackerTracker;
 import com.sweegy.invasioncodered.entity.ai.actions.ActionCommand;
 import com.sweegy.invasioncodered.entity.stonecutterman.actions.StoneCutterManActionSelector;
 import com.sweegy.invasioncodered.entity.stonecutterman.actions.StoneCutterManActions;
+import com.sweegy.invasioncodered.entity.stonecutterman.control.StoneCutterManBodyRotationControl;
+import com.sweegy.invasioncodered.entity.stonecutterman.control.StoneCutterManMoveControl;
 import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModEntities;
+import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModSounds;
 import com.sweegy.invasioncodered.interfaces.FadingOutAnimation;
 import com.sweegy.invasioncodered.interfaces.IActionStateMob;
 import com.sweegy.invasioncodered.interfaces.IUsingFadingAnims;
@@ -24,13 +28,13 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.world.BossEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.BodyRotationControl;
 import net.minecraft.world.entity.ai.control.LookControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -52,18 +56,25 @@ import java.util.List;
 public class StoneCutterManEntity extends Raider implements IActionStateMob, IUsingFadingAnims {
     public static final EntityDataAccessor<Byte> DATA_actionState = SynchedEntityData.defineId(StoneCutterManEntity.class, EntityDataSerializers.BYTE);
     public static final EntityDataAccessor<Boolean> DATA_updateAnim = SynchedEntityData.defineId(StoneCutterManEntity.class, EntityDataSerializers.BOOLEAN);
-    public static final EntityDataAccessor<Boolean> DATA_isInAction = SynchedEntityData.defineId(StoneCutterManEntity.class, EntityDataSerializers.BOOLEAN);
-    public static double MELEE_COMBO_CHANCE, KNOCK_CHANCE, KNOCK_DOWN_CHANCE;
-    public static boolean MELEE_COMBO_CHANCE_SET = false, KNOCK_CHANCE_SET = false;
+    public static final EntityDataAccessor<Boolean> DATA_stopLegAnim = SynchedEntityData.defineId(StoneCutterManEntity.class, EntityDataSerializers.BOOLEAN);
+    public static final EntityDataAccessor<Byte> DATA_animSpeed = SynchedEntityData.defineId(StoneCutterManEntity.class, EntityDataSerializers.BYTE);
+    public static final EntityDataAccessor<Byte> DATA_moveTimestep = SynchedEntityData.defineId(StoneCutterManEntity.class, EntityDataSerializers.BYTE);
+    private static final int BASE_ROT_LIMIT = 90;
+
     public final RecentAttackerTracker attackerTracker = new RecentAttackerTracker(this, 8);
     public final ServerBossEvent bossInfo = new ServerBossEvent(this.getDisplayName(), ServerBossEvent.BossBarColor.WHITE, ServerBossEvent.BossBarOverlay.PROGRESS);
 
-    public int actionTicks, actionProgress, prevActionState = 0, animIdx = 0, animSpeed = 1, sprintTickO, sprintTick;
+    public int actionTicks, actionProgress, prevActionState = 0,
+            animIdx = 0, animSpeed = 1, sprintTickO, sprintTick, legActiveTickO, legActiveTick,
+            spamComboCount = 0, spamComboSucceedCount = 0,
+            screamCooltime = 0, ramModeCoolTime = 0, jumpAttackCooltime = 0,
+            avoidTicks = 0;
     public float animTicks = 0f, animTicksO = 0f, fadeInTicks = 5f, fadeInTicksO = 5f;
-    public boolean updatedActionInitially = false, shouldUpdateAnim = true, isProcessingDamage = true;
+    public boolean updatedActionInitially = false, shouldUpdateAnim = true, isProcessingDamage = true, isKnocked = false, spamAttackReady = false, isInAction = false, canBounce = false;
     private EntityModelCache animCache;
     private ActionCommand<StoneCutterManEntity> currentAction;
     public ArrayList<FadingOutAnimation> fadingAnims = new ArrayList<FadingOutAnimation>();
+    public StoneCutterManMoveControl stoneCutterManMoveControl;
 
     public StoneCutterManEntity(PlayMessages.SpawnEntity packet, Level world) {
         this(InvasioncoderedsweegyportModEntities.STONE_CUTTER_MAN.get(), world);
@@ -76,16 +87,31 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
         noCulling = true;
         setNoAi(false);
         setPersistenceRequired();
-     }
+        setMaxUpStep(1.1f);
+        stoneCutterManMoveControl = new StoneCutterManMoveControl(this);
+        moveControl = stoneCutterManMoveControl;
+    }
+
+    protected BodyRotationControl createBodyControl() {
+        return new StoneCutterManBodyRotationControl(this);
+    }
+
+    @Override
+    protected int calculateFallDamage(float fallDistance, float damageMultiplier) {
+        return super.calculateFallDamage(fallDistance * 0.3f, damageMultiplier);
+    }
 
     @Override
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34297_, DifficultyInstance p_34298_, MobSpawnType p_34299_, @Nullable SpawnGroupData p_34300_, @Nullable CompoundTag p_34301_) {
+        setActionState(StoneCutterManAnimationIndex.anims_intro);
         EntityUtil.setConfigattribute(this, InvasionCodeRedConfig.GASHSLIT_HEALTH_MULTIPLIER.get());
         return super.finalizeSpawn(p_34297_, p_34298_, p_34299_, p_34300_, p_34301_);
     }
 
-    public List<FadingOutAnimation> getFadingAnims(){ return fadingAnims; }
+    public List<FadingOutAnimation> getFadingAnims() {
+        return fadingAnims;
+    }
 
     public float getFadeInTime(float partialTicks) {
         return Math.min(Mth.lerp(partialTicks, fadeInTicksO, fadeInTicks), 5) * 0.2f;
@@ -115,15 +141,36 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
         currentAction = StoneCutterManActions.COMMAND_MAP.get(input);
         actionTicks = actionProgress = 0;
         entityData.set(DATA_updateAnim, !entityData.get(DATA_updateAnim));
+        stoneCutterManMoveControl.rotationLimit = BASE_ROT_LIMIT;
+        setNoGravity(false);
+        setStopLegAnim(false);
+        setSprinting(false);
+        setAnimSpeed(1);
     }
 
-    public boolean isInDeathAction(){ return entityData.get(DATA_actionState) == StoneCutterManAnimationIndex.anims_dead; }
+    public boolean isInDeathAction() {
+        return entityData.get(DATA_actionState) == StoneCutterManAnimationIndex.anims_dead;
+    }
+
+    public void setStopLegAnim(boolean input) {
+        entityData.set(DATA_stopLegAnim, input);
+    }
+
+    public boolean isLegAnimStop() {
+        return entityData.get(DATA_stopLegAnim);
+    }
 
     public void setInAction(boolean input) {
-        entityData.set(DATA_isInAction, input);
+        isInAction = input;
     }
 
-    public boolean isInAction() { return entityData.get(DATA_isInAction); }
+    public boolean isInAction() {
+        return isInAction;
+    }
+
+    public void setAnimSpeed(int val) {
+        entityData.set(DATA_animSpeed, (byte) val);
+    }
 
     public void onSyncedDataUpdated(EntityDataAccessor<?> p_21104_) {
         super.onSyncedDataUpdated(p_21104_);
@@ -143,31 +190,31 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
             }
         };
         goalSelector.addGoal(0, new DoNothingGoal(this));
-        goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, false) {
+        goalSelector.addGoal(1, new AvoidTargetGoal(this, 4, 1.2) {
+                    @Override
+                    public boolean canUse() {
+                        return StoneCutterManEntity.this.avoidTicks > 0 && super.canUse();
+                    }
+
+                    @Override
+                    public boolean canContinueToUse() {
+                        return StoneCutterManEntity.this.avoidTicks > 0 && super.canContinueToUse();
+                    }
+                }
+        );
+        goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.2, false) {
             @Override
             protected double getAttackReachSqr(LivingEntity entity) {
                 return -1;
-            }
-
-            @Override
-            public void start(){
-                super.start();
-                mob.setSprinting(true);
-            }
-
-            @Override
-            public void stop(){
-                super.stop();
-                mob.setSprinting(false);
             }
         });
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, LivingEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, AbstractVillager.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal(this, IronGolem.class, true));
-        this.goalSelector.addGoal(1, new RandomStrollGoal(this, 1));
-        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-        this.goalSelector.addGoal(4, new FloatGoal(this));
+        this.goalSelector.addGoal(3, new RandomStrollGoal(this, 1));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new FloatGoal(this));
     }
 
     @Override
@@ -181,7 +228,14 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
         boolean tookDamage = super.hurt(source, amount);
         this.isProcessingDamage = false;
         if (tookDamage && this.isAlive() && !this.level().isClientSide()) {
-
+            int rand = random.nextInt(100);
+            if (rand < InvasionCodeRedConfig.STONE_CUTTER_MAN_KNOCK_CHANCE.get()) {
+                setActionState(StoneCutterManAnimationIndex.anims_knocked);
+            } else if (rand < InvasionCodeRedConfig.STONE_CUTTER_MAN_KNOCK_CHANCE.get() + InvasionCodeRedConfig.STONE_CUTTER_MAN_SIDE_MOVE_CHANCE.get()) {
+                setActionState(random.nextInt(2) == 1
+                        ? StoneCutterManAnimationIndex.anims_sidemove
+                        : StoneCutterManAnimationIndex.anims_sidemove2);
+            }
             if (source.getEntity() instanceof LivingEntity attacker) {
                 this.attackerTracker.onAttackedBy(attacker);
             }
@@ -207,21 +261,21 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
                 setActionState(actionState);
                 updatedActionInitially = true;
             }
-            if(isAlive()){
-                attackerTracker.tick();
-                if (actionState == 0) {
-                    if ((tickCount & 7) == 0) {
-                        LivingEntity target = getTarget();
-                        if (target != null) {
-                            StoneCutterManActionSelector.INSTANCE.evaluateAndChoose(this, target, getX(), getY(), getZ());
-                        }
-                    }
-                } else {
-                    if(currentAction != null) {
-                        currentAction.execute(level(), this, getX(), getY(), getZ());
+            //if (isAlive()) {
+            attackerTracker.tick();
+            if (actionState == 0) {
+                if ((tickCount & 7) == 0) {
+                    LivingEntity target = getTarget();
+                    if (target != null) {
+                        StoneCutterManActionSelector.INSTANCE.evaluateAndChoose(this, target, getX(), getY(), getZ());
                     }
                 }
+            } else {
+                if (currentAction != null) {
+                    currentAction.execute(level(), this, getX(), getY(), getZ());
+                }
             }
+            //}
         }
         if (level().isClientSide()) {
             handleClientTick();
@@ -229,8 +283,8 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
     }
 
     private void handleClientTick() {
+        animSpeed = entityData.get(DATA_animSpeed);
         if (shouldUpdateAnim) {
-            animSpeed = 1;//entityData.get(DATA_animSpeed);
             if (animTicks != 0 && prevActionState != 0)
                 getFadingAnims().add(new FadingOutAnimation(getFadingAnims(), animTicks, Math.min(animTicks, 5), prevActionState - 1, animSpeed));
             prevActionState = animIdx = entityData.get(DATA_actionState);
@@ -242,12 +296,18 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
         this.animTicks = this.animTicks + this.animSpeed;
         this.fadeInTicksO = this.fadeInTicks;
         this.sprintTickO = this.sprintTick;
+        this.legActiveTickO = this.legActiveTick;
         this.fadeInTicks = Math.min(this.fadeInTicks + this.animSpeed, 5);
-        this.sprintTick = isSprinting() ? Math.min(this.sprintTick + 1, 5) : Math.max(this.sprintTick - 1, 0);
+        this.sprintTick = isAggressive() ? Math.min(this.sprintTick + 1, 5) : Math.max(this.sprintTick - 1, 0);
+        this.legActiveTick = !isLegAnimStop() ? Math.min(this.legActiveTick + animSpeed, 5) : Math.max(this.legActiveTick - animSpeed, 0);
 
         for (FadingOutAnimation anim : this.getFadingAnims()) {
             anim.tick();
         }
+    }
+
+    @Override
+    protected void tickDeath() {
     }
 
     @Override
@@ -278,7 +338,9 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
         super.defineSynchedData();
         this.entityData.define(DATA_actionState, (byte) 0);
         this.entityData.define(DATA_updateAnim, false);
-        this.entityData.define(DATA_isInAction, false);
+        this.entityData.define(DATA_stopLegAnim, false);
+        this.entityData.define(DATA_animSpeed, (byte) 1);
+        this.entityData.define(DATA_moveTimestep, (byte) 1);
     }
 
     @Override
@@ -286,7 +348,8 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
         super.addAdditionalSaveData(compound);
         compound.putByte("DataactionState", this.entityData.get(DATA_actionState));
         compound.putBoolean("DataupdateAnim", this.entityData.get(DATA_updateAnim));
-        compound.putBoolean("DataisInAction", this.entityData.get(DATA_isInAction));
+        compound.putBoolean("spamAttackReady", this.spamAttackReady);
+        compound.putBoolean("isInAction", isInAction);
     }
 
     @Override
@@ -298,13 +361,15 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
         }
         if (compound.contains("DataupdateAnim"))
             this.entityData.set(DATA_updateAnim, compound.getBoolean("DataupdateAnim"));
-        if (compound.contains("DataisInAction"))
-            this.entityData.set(DATA_isInAction, compound.getBoolean("DataisInAction"));
+        if (compound.contains("spamAttackReady"))
+            spamAttackReady = compound.getBoolean("spamAttackReady");
+        if (compound.contains("isInAction"))
+            isInAction = compound.getBoolean("isInAction");
     }
 
     public static AttributeSupplier.Builder createAttributes() {
         AttributeSupplier.Builder builder = Mob.createMobAttributes();
-        builder = builder.add(Attributes.MOVEMENT_SPEED, 0.24);
+        builder = builder.add(Attributes.MOVEMENT_SPEED, 0.4);
         builder = builder.add(Attributes.MAX_HEALTH, 490);
         builder = builder.add(Attributes.ARMOR, 0);
         builder = builder.add(Attributes.ATTACK_DAMAGE, 19);
@@ -313,38 +378,28 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
         return builder;
     }
 
-    public float getDamageMultiplier(){
-        return 2f - getHealth()/getMaxHealth();
+    public float getDamageMultiplier() {
+        return 2f - getHealth() / getMaxHealth();
     }
-
 
     @Override
     public void die(DamageSource source) {
         super.die(source);
         if (!level().isClientSide()) {
-            setActionState(StoneCutterManAnimationIndex.anims_dead);
+            setActionState(StoneCutterManAnimationIndex.anims_Explode);
             setYRot(yBodyRot);
             setXRot(0);
             setYHeadRot(yBodyRot);
             removeAllEffects();
+            setAnimSpeed(1);
+            setStopLegAnim(true);
+            this.bossInfo.setProgress(0);
         }
     }
 
-    //Config value getter
-    public static double getMeleeComboChance(){
-        if(!MELEE_COMBO_CHANCE_SET) {
-            MELEE_COMBO_CHANCE_SET = true;
-            MELEE_COMBO_CHANCE = InvasionCodeRedConfig.STONE_CUTTER_MAN_MELEE_COMBO_CHANCE.get();
-        }
-        return MELEE_COMBO_CHANCE;
-    }
-
-    public static double getKnockChance(){
-        if(!KNOCK_CHANCE_SET) {
-            KNOCK_CHANCE_SET = true;
-            KNOCK_CHANCE = InvasionCodeRedConfig.STONE_CUTTER_MAN_KNOCK_CHANCE.get();
-        }
-        return MELEE_COMBO_CHANCE;
+    @Override
+    public SoundEvent getHurtSound(DamageSource ds) {
+        return InvasioncoderedsweegyportModSounds.STONECUTTERMAN_HURT.get();
     }
 
     //dummy codes for inheritance

@@ -23,6 +23,8 @@ public class StoneCutterManAnimationIndex {
             stonecuttermanAnimation.airland, //
             stonecuttermanAnimation.digattack, //
             stonecuttermanAnimation.uppercut, //
+            stonecuttermanAnimation.Explode, //
+            stonecuttermanAnimation.prepare_spin, //
     };
 
     public static final int
@@ -43,5 +45,7 @@ public class StoneCutterManAnimationIndex {
             anims_sidemove2 = 15,
             anims_airland = 16,
             anims_digattack = 17,
-            anims_uppercut = 18;
+            anims_uppercut = 18,
+            anims_Explode = 19,
+            anims_prepare_spin = 20;
 }

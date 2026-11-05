@@ -1,5 +1,7 @@
 package com.sweegy.invasioncodered.init;
 
+import com.sweegy.invasioncodered.entity.brawler.BrawlerEntity;
+import com.sweegy.invasioncodered.entity.cuccita.CuccitaEntity;
 import com.sweegy.invasioncodered.entity.stonecutterman.StoneCutterManEntity;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -25,10 +27,16 @@ public class InvasioncoderedsweegyportModEntities {
 	public static final DeferredRegister<EntityType<?>> REGISTRY = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, InvasioncoderedsweegyportMod.MODID);
 	public static final RegistryObject<EntityType<GashslitEntity>> GASHSLIT = register("gashslit",
 			EntityType.Builder.<GashslitEntity>of(GashslitEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(GashslitEntity::new).fireImmune()
-					.sized(0.6f, 2f));
+					.sized(0.6f, 1.9f));
     public static final RegistryObject<EntityType<StoneCutterManEntity>> STONE_CUTTER_MAN = register("stone_cutter_man",
 			EntityType.Builder.<StoneCutterManEntity>of(StoneCutterManEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(StoneCutterManEntity::new)
-					.sized(0.7f, 2f));
+					.sized(0.7f, 1.9f));
+    public static final RegistryObject<EntityType<BrawlerEntity>> BRAWLER = register("brawler",
+			EntityType.Builder.<BrawlerEntity>of(BrawlerEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(BrawlerEntity::new)
+					.sized(0.7f, 1.9f));
+    public static final RegistryObject<EntityType<CuccitaEntity>> CUCCITA = register("cuccita",
+			EntityType.Builder.<CuccitaEntity>of(CuccitaEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CuccitaEntity::new)
+					.sized(0.7f, 1.9f));
 	public static final RegistryObject<EntityType<GashSlitSlashProjectileEntity>> GASH_SLIT_SLASH_PROJECTILE = register("gash_slit_slash_projectile",
 			EntityType.Builder.<GashSlitSlashProjectileEntity>of(GashSlitSlashProjectileEntity::new, MobCategory.MISC).setCustomClientFactory(GashSlitSlashProjectileEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
 					.setUpdateInterval(1).sized(0.5f, 0.5f));
@@ -44,7 +52,7 @@ public class InvasioncoderedsweegyportModEntities {
 	// Start of user code block custom entities
 	// End of user code block custom entities
 	private static <T extends Entity> RegistryObject<EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
-		return REGISTRY.register(registryname, () -> (EntityType<T>) entityTypeBuilder.build(registryname));
+		return REGISTRY.register(registryname, () -> entityTypeBuilder.build(registryname));
 	}
 
 	@SubscribeEvent
@@ -60,5 +68,6 @@ public class InvasioncoderedsweegyportModEntities {
 		event.put(GASHSLIT.get(), GashslitEntity.createAttributes().build());
 		event.put(GASHSLIT_DRAGON.get(), GashslitDragonEntity.createAttributes().build());
 		event.put(STONE_CUTTER_MAN.get(), StoneCutterManEntity.createAttributes().build());
+		event.put(BRAWLER.get(), BrawlerEntity.createAttributes().build());
 	}
 }

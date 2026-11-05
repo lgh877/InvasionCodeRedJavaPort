@@ -18,10 +18,13 @@ public class InvasionCodeRedConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> CURSED_DRAGON_LIFE_SPAN;
     public static final ForgeConfigSpec.ConfigValue<Double> STONE_CUTTER_MAN_MELEE_COMBO_CHANCE;
     public static final ForgeConfigSpec.ConfigValue<Integer> STONE_CUTTER_MAN_KNOCK_CHANCE;
-    public static final ForgeConfigSpec.ConfigValue<Integer> STONE_CUTTER_MAN_KNOCK_DOWN_CHANCE;
+    public static final ForgeConfigSpec.ConfigValue<Integer> STONE_CUTTER_MAN_SIDE_MOVE_CHANCE;
     public static final ForgeConfigSpec.ConfigValue<Double> STONE_CUTTER_MAN_HEALTH_MULTIPLIER;
     public static final ForgeConfigSpec.ConfigValue<Double> STONE_CUTTER_MAN_DAMAGE_MULTIPLIER;
     public static final ForgeConfigSpec.ConfigValue<Float> STONE_CUTTER_MAN_ANIM_FRAME;
+    public static final ForgeConfigSpec.ConfigValue<Double> BRAWLER_HEALTH_MULTIPLIER;
+    public static final ForgeConfigSpec.ConfigValue<Double> BRAWLER_DAMAGE_MULTIPLIER;
+    public static final ForgeConfigSpec.ConfigValue<Float> BRAWLER_ANIM_FRAME;
 
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> CUSTOM_RAIDER_LIST;
 
@@ -46,8 +49,14 @@ public class InvasionCodeRedConfig {
         STONE_CUTTER_MAN_DAMAGE_MULTIPLIER = BUILDER.comment("Multiplies damage of StoneCutterMan").define("Damage Multiplier", (double) 1);
         STONE_CUTTER_MAN_ANIM_FRAME = BUILDER.comment("Sets the max framerate of StoneCutterMan's animation\nGood for FPS optimization or funny look if you set the frame low").define("Framerate controller", 60f);
         STONE_CUTTER_MAN_MELEE_COMBO_CHANCE = BUILDER.comment("Sets StoneCutterMan's chance to use melee attack in row").define("Melee Combo Chance", 0.3);
-        STONE_CUTTER_MAN_KNOCK_CHANCE = BUILDER.comment("Sets StoneCutterMan's chance to be knocked when attacked. Cacluated with knock down chance is added.").define("Knock Chance", 5);
-        STONE_CUTTER_MAN_KNOCK_DOWN_CHANCE = BUILDER.comment("Sets StoneCutterMan's chance to be knocked down when attacked. Cacluated with knock chance is added.").define("Knock Down Chance", 1);
+        STONE_CUTTER_MAN_KNOCK_CHANCE = BUILDER.comment("Sets StoneCutterMan's chance to be knocked when attacked. Cacluated with side move chance is added.").define("Knock Chance", 5);
+        STONE_CUTTER_MAN_SIDE_MOVE_CHANCE = BUILDER.comment("Sets StoneCutterMan's chance to use side move when attacked. Cacluated with knock chance is added.").define("Side Move Chance", 10);
+        BUILDER.pop();
+
+        BUILDER.push("Brawler Details");
+        BRAWLER_HEALTH_MULTIPLIER = BUILDER.comment("Multiplies health of Brawler").define("Health Multiplier", (double) 1);
+        BRAWLER_DAMAGE_MULTIPLIER = BUILDER.comment("Multiplies damage of Brawler").define("Damage Multiplier", (double) 1);
+        BRAWLER_ANIM_FRAME = BUILDER.comment("Sets the max framerate of Brawler's animation\nGood for FPS optimization or funny look if you set the frame low").define("Framerate controller", 60f);
         BUILDER.pop();
 
         BUILDER.push("Custom Raiders");

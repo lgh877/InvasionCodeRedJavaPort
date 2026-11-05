@@ -35,7 +35,7 @@ public class StoneCutterManAnimatedModel extends Modelstonecutterman<StoneCutter
             }
 
             //float legAnimTicks = entity.getLegAnimTicks(partialTicks) * 0.2f;
-            animateWalk(stonecuttermanAnimation.runningpose, limbSwing, limbSwingAmount, 1f, 1f);
+            animateWalk(stonecuttermanAnimation.runningpose, 1, Mth.lerp(ageInTicks - entity.tickCount, entity.sprintTickO, entity.sprintTick) * 0.2f, 1f, 1f);
             applyFadingAnims(entity, partialTicks, StoneCutterManAnimationIndex.anims);
 
 
@@ -98,26 +98,18 @@ public class StoneCutterManAnimatedModel extends Modelstonecutterman<StoneCutter
             this.trueHead.yRot = netHeadYaw / (180F / (float) Math.PI);
             this.trueHead.xRot = headPitch / (180F / (float) Math.PI);
 
-            float limbAmplitude = 1f + Mth.lerp(ageInTicks - entity.tickCount, entity.sprintTickO, entity.sprintTick) * 0.1f;
-            float limbAnim = Mth.cos(limbSwing * 0.6662F) * limbAmplitude * limbSwingAmount;
+            float legAnimActive = Mth.lerp(ageInTicks - entity.tickCount, entity.legActiveTickO, entity.legActiveTick) * 0.2f;
+            if(legAnimActive > 0) {
+                float limbAmplitude = 1f + Mth.lerp(ageInTicks - entity.tickCount, entity.sprintTickO, entity.sprintTick) * 0.1f;
+                float limbAnim = Mth.cos(limbSwing * 0.6662F) * limbAmplitude * limbSwingAmount * legAnimActive;
 
-            LeftArm.xRot += limbAnim;
-            RightArm.xRot += -limbAnim;
-            LeftLeg.xRot += -limbAnim;
-            RightLeg.xRot += limbAnim;
-
-            if (limbAmplitude > 1.0001f) {
-                float rand1 = entity.getRandom().nextFloat() * (limbAmplitude - 1f) * 2
-                        , rand2 = entity.getRandom().nextFloat() * (limbAmplitude - 1f) * 2;
-                head.x += rand1;
-                head.z += rand2;
-                head.xRot += rand1 * 0.1f;
-                head.yRot += rand2 * 0.1f;
-                head.zRot += rand1 * 0.1f;
+                LeftArm.xRot += limbAnim;
+                RightArm.xRot += -limbAnim;
+                LeftLeg.xRot += -limbAnim;
+                RightLeg.xRot += limbAnim;
             }
 
             cache.capture(allPartsFlat);
-            cache.lastAnimStep = currentStep;
             cache.markCaptured(currentStep);
         } else {
             cache.apply(allPartsFlat);

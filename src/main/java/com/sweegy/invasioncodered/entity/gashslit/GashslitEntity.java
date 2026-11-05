@@ -373,9 +373,9 @@ public class GashslitEntity extends Raider implements IActionStateMob, IUsingFad
 			Entity owner = ((TraceableEntity) p_32665_).getOwner();
 			return owner != null && this.isAlliedTo(owner);
 		}
-		else if (p_32665_ instanceof LivingEntity && ((LivingEntity) p_32665_).getMobType() == MobType.ILLAGER) {
-			return this.getTeam() == null && p_32665_.getTeam() == null;
-		}
+//		else if (p_32665_ instanceof LivingEntity && ((LivingEntity) p_32665_).getMobType() == MobType.ILLAGER) {
+//			return this.getTeam() == null && p_32665_.getTeam() == null;
+//		}
 		else {
 			return false;
 		}

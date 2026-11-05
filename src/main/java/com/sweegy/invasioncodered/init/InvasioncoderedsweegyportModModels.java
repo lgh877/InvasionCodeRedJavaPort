@@ -15,6 +15,7 @@ public class InvasioncoderedsweegyportModModels {
 		event.registerLayerDefinition(Modelgashslit_leggings.LAYER_LOCATION, Modelgashslit_leggings::createBodyLayer);
 		event.registerLayerDefinition(Modelgashslit.LAYER_LOCATION, Modelgashslit::createBodyLayer);
 		event.registerLayerDefinition(Modelstonecutterman.LAYER_LOCATION, Modelstonecutterman::createBodyLayer);
+		event.registerLayerDefinition(Modelbrawler.LAYER_LOCATION, Modelbrawler::createBodyLayer);
 		event.registerLayerDefinition(Modelsusanogashslit.LAYER_LOCATION, Modelsusanogashslit::createBodyLayer);
 		event.registerLayerDefinition(Modelgashslit_slash.LAYER_LOCATION, Modelgashslit_slash::createBodyLayer);
 		event.registerLayerDefinition(Modelgashslitdragon.LAYER_LOCATION, Modelgashslitdragon::createBodyLayer);

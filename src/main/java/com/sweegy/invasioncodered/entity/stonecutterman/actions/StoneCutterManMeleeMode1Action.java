@@ -3,12 +3,16 @@ package com.sweegy.invasioncodered.entity.stonecutterman.actions;
 import com.sweegy.invasioncodered.client.model.animations.indices.StoneCutterManAnimationIndex;
 import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.entity.stonecutterman.StoneCutterManEntity;
+import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModSounds;
 import com.sweegy.invasioncodered.util.EntityUtil;
 import com.sweegy.invasioncodered.util.math.RotatableHitbox;
 import com.sweegy.invasioncodered.util.math.VectorHelper;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -58,7 +62,7 @@ public class StoneCutterManMeleeMode1Action {
                 );
 
                 double flatDist = diffVec.length();
-                double dashDist = Mth.clamp(flatDist, width, width * 3.0D);
+                double dashDist = Math.min(flatDist, width);
 
                 Vec3 flatLookVec =
                         VectorHelper.calculateFlatViewVector(mob.yBodyRot);
@@ -78,7 +82,7 @@ public class StoneCutterManMeleeMode1Action {
 
         } else if (actionTicks == 8) {
             if (mob.getRandom().nextDouble()
-                    < StoneCutterManEntity.getMeleeComboChance()) {
+                    < InvasionCodeRedConfig.STONE_CUTTER_MAN_MELEE_COMBO_CHANCE.get()) {
                 tryMeleeCombo(mob);
             }
         } else if (actionTicks > 11) {
@@ -89,6 +93,7 @@ public class StoneCutterManMeleeMode1Action {
     private static void attack(LevelAccessor world, StoneCutterManEntity mob,
                                double x, double y, double z,
                                double width, double height) {
+        mob.playSound(InvasioncoderedsweegyportModSounds.STONECUTTERMAN_ATTACK.get());
         Vec3 flatLookVec =
                 VectorHelper.calculateFlatViewVector(mob.yBodyRot);
 
@@ -119,6 +124,8 @@ public class StoneCutterManMeleeMode1Action {
                 e -> true
         );
 
+        boolean didHitTarget = false;
+
         for (LivingEntity target : targets) {
             if (target != mob
                     && target.canBeSeenAsEnemy()
@@ -129,8 +136,14 @@ public class StoneCutterManMeleeMode1Action {
                         attackDamage
                 )) {
                     EntityUtil.applyKnockback(mob, target, knockback);
+                    if(target == mob.getTarget()) didHitTarget = true;
                 }
             }
+        }
+
+        if(didHitTarget) {
+            mob.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20, 5, false, false));
+            mob.avoidTicks = 3;
         }
     }
 
@@ -139,7 +152,7 @@ public class StoneCutterManMeleeMode1Action {
         if(target!=null) {
             double yDiff = target.getY() - mob.getY();
             boolean isYValid = yDiff < mob.getBbHeight() && yDiff > -target.getBbHeight();
-            boolean canAttackFlat = Math.sqrt(Math.pow(target.getX() - mob.getX(),2) + Math.pow(target.getZ() - mob.getZ(),2)) < target.getBbWidth() / 2 + mob.getBbWidth() * 5.5;
+            boolean canAttackFlat = Math.sqrt(Math.pow(target.getX() - mob.getX(),2) + Math.pow(target.getZ() - mob.getZ(),2)) < target.getBbWidth() / 2 + mob.getBbWidth() * 4;
             boolean succeed = isYValid && canAttackFlat;
             if(succeed) {
                 mob.setActionState(mob.getRandom().nextFloat() > 0.5 ? StoneCutterManAnimationIndex.anims_attack2 : StoneCutterManAnimationIndex.anims_attack3);

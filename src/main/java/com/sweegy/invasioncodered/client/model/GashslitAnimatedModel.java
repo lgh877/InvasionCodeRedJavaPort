@@ -148,9 +148,14 @@ public class GashslitAnimatedModel extends Modelgashslit<GashslitEntity> impleme
                 this.torso.zRot += ((float) Math.PI / 360f) * (Mth.cos(t * 10.0f) * 10.0f);
                 this.torso.y += Mth.sin(t * 40.0f) * 0.35f;
             }
+            if (this.riding) {
+                this.rightLeg.xRot = -1.4137167F;
+                this.rightLeg.yRot = ((float)Math.PI / 10F);
+                this.leftLeg.xRot = -1.4137167F;
+                this.leftLeg.yRot = -((float)Math.PI / 10F);
+            }
             super.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
             cache.capture(allPartsFlat);
-            cache.lastAnimStep = currentStep;
             cache.markCaptured(currentStep);
         } else {
             cache.apply(allPartsFlat);

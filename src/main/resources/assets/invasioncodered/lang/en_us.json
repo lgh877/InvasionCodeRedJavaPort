@@ -1,7 +1,10 @@
 {
   "entity.invasioncodered.gashslit": "Gashslit",
+  "entity.invasioncodered.stone_cutter_man": "Stonecutter Man",
+  "entity.invasioncodered.brawler": "Brawler",
   "item.invasioncodered.gashslit_spawn_egg": "Gashslit Spawn Egg",
-  "item.invasioncodered.stonecutterman_spawn_egg": "StoneCutterMan Spawn Egg",
+  "item.invasioncodered.stonecutterman_spawn_egg": "Stonecutter Man Spawn Egg",
+  "item.invasioncodered.brawler_spawn_egg": "Brawler Spawn Egg",
   "subtitles.invasioncodered.gash_hurt": "Gashslit hurt",
   "subtitles.invasioncodered.gash_idle": "Gashslit breathes",
   "subtitles.invasioncodered.gash_slice": "Gashslit slashes",
@@ -41,10 +44,11 @@
   "advancements.invasioncodered.adventure.root.title": "Welcome to Invasion Code Red",
   "subtitles.invasioncodered.cursed_rage_occur": "Cursed rage is activated",
   "subtitles.invasioncodered.cursed_armor_equip": "Cursed armor is equipped",
-  "subtitles.invasioncodered.stonecutterman_hurt": "Stone Cutter Man hurts",
-  "subtitles.invasioncodered.stonecutterman_intro": "Stone Cutter Man screams",
-  "subtitles.invasioncodered.stonecutterman_spam": "Stone Cutter Man spams attacks",
+  "subtitles.invasioncodered.stonecutterman_hurt": "Stonecutter Man hurts",
+  "subtitles.invasioncodered.stonecutterman_intro": "Stonecutter Man screams",
+  "subtitles.invasioncodered.stonecutterman_spam": "Stonecutter Man spams attacks",
+  "subtitles.invasioncodered.stonecutterman_attack": "Stonecutter Man saw noise",
   "bossbar.invasioncodered.gashslit_bossbar_first" : "Gashslit",
   "bossbar.invasioncodered.gashslit_bossbar_second" : "The Emperor",
-  "bossbar.invasioncodered.stonecutterman_bossbar" : "Stone Cutter Man"
+  "bossbar.invasioncodered.stonecutterman_bossbar" : "Stonecutter Man"
 }

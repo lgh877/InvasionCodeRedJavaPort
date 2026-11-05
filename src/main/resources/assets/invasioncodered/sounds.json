@@ -212,5 +212,14 @@
         "stream": false
       }
     ]
+  },
+  "stonecutterman_attack": {
+    "subtitle": "subtitles.invasioncodered.stonecutterman_attack",
+    "sounds": [
+      {
+        "name": "minecraft:ui.stonecutter.take_result",
+        "type": "event"
+      }
+    ]
   }
 }
