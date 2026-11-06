@@ -19,5 +19,6 @@ public class InvasioncoderedsweegyportModEntityRenderers {
 		event.registerEntityRenderer(InvasioncoderedsweegyportModEntities.DAMAGE_CONFIGURABLE_SMALL_FIREBALL.get(), ThrownItemRenderer::new);
 		event.registerEntityRenderer(InvasioncoderedsweegyportModEntities.STONE_CUTTER_MAN.get(), StoneCutterManRenderer::new);
 		event.registerEntityRenderer(InvasioncoderedsweegyportModEntities.RAVAGER_HUNTER.get(), RavagerHunterRenderer::new);
+		event.registerEntityRenderer(InvasioncoderedsweegyportModEntities.CUCCITA.get(), CuccitaRenderer::new);
 	}
 }

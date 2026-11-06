@@ -7,6 +7,7 @@ import com.sweegy.invasioncodered.entity.ai.AvoidTargetGoal;
 import com.sweegy.invasioncodered.entity.ai.DoNothingGoal;
 import com.sweegy.invasioncodered.entity.ai.RecentAttackerTracker;
 import com.sweegy.invasioncodered.entity.ai.actions.ActionCommand;
+import com.sweegy.invasioncodered.entity.cuccita.CuccitaEntity;
 import com.sweegy.invasioncodered.entity.stonecutterman.actions.StoneCutterManActionSelector;
 import com.sweegy.invasioncodered.entity.stonecutterman.actions.StoneCutterManActions;
 import com.sweegy.invasioncodered.entity.stonecutterman.control.StoneCutterManBodyRotationControl;
@@ -394,6 +395,22 @@ public class StoneCutterManEntity extends Raider implements IActionStateMob, IUs
             setAnimSpeed(1);
             setStopLegAnim(true);
             this.bossInfo.setProgress(0);
+        }
+    }
+
+    public boolean isAlliedTo(Entity p_32665_) {
+        if (p_32665_ == null) {
+            return false;
+        } else if (p_32665_ == this) {
+            return true;
+        } else if (super.isAlliedTo(p_32665_)) {
+            return true;
+        }
+//		else if (p_32665_ instanceof LivingEntity && ((LivingEntity) p_32665_).getMobType() == MobType.ILLAGER) {
+//			return this.getTeam() == null && p_32665_.getTeam() == null;
+//		}
+        else {
+            return p_32665_ instanceof CuccitaEntity;
         }
     }
 

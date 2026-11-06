@@ -213,6 +213,9 @@ public class GashslitDragonEntity extends Monster implements TraceableEntity {
 		if (this.hasLimitedLife) {
 			compound.putInt("LifeTicks", this.lifeTime);
 		}
+        if (this.ownerUUID != null) {
+            compound.putUUID("Owner", this.ownerUUID);
+        }
 	}
 
 	@Override
@@ -223,6 +226,9 @@ public class GashslitDragonEntity extends Monster implements TraceableEntity {
 		if (compound.contains("LifeTicks")) {
 			this.setLimitedLife(compound.getInt("LifeTicks"));
 		}
+        if (compound.hasUUID("Owner")) {
+            this.ownerUUID = compound.getUUID("Owner");
+        }
 	}
 
 	@Override

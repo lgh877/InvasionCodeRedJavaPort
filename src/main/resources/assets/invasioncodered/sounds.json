@@ -183,6 +183,23 @@
       }
     ]
   },
+  "ravager_hunter_hurt": {
+    "subtitle": "subtitles.invasioncodered.ravager_hunter_hurt",
+    "sounds": [
+      {
+        "name": "invasioncodered:stonecutterman_hurt1",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:stonecutterman_hurt2",
+        "stream": false
+      },
+      {
+        "name": "invasioncodered:stonecutterman_hurt3",
+        "stream": false
+      }
+    ]
+  },
   "stonecutterman_intro": {
     "subtitle": "subtitles.invasioncodered.stonecutterman_intro",
     "sounds": [

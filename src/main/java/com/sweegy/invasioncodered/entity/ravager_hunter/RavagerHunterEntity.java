@@ -4,8 +4,10 @@ import com.sweegy.invasioncodered.client.model.animations.indices.RavagerHunterA
 import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.entity.ai.DoNothingGoal;
 import com.sweegy.invasioncodered.entity.ai.actions.ActionCommand;
+import com.sweegy.invasioncodered.entity.cuccita.CuccitaEntity;
 import com.sweegy.invasioncodered.entity.ravager_hunter.actions.RavagerHunterActions;
 import com.sweegy.invasioncodered.entity.ravager_hunter.actions.RavagerHunterPursuitGoal;
+import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModSounds;
 import com.sweegy.invasioncodered.interfaces.SimpleFadingOutAnimation;
 import com.sweegy.invasioncodered.interfaces.IActionStateMob;
 import com.sweegy.invasioncodered.interfaces.IUsingSimpleFadingAnims;
@@ -123,9 +125,9 @@ public class RavagerHunterEntity extends Raider implements IActionStateMob, IUsi
         }
         if (!isAlive()) return;
 
-//        if (!cuccitaSpawned && (tickCount == 1 || (tickCount & 15) == 0)) {
-//            spawnLeashedCuccita();
-//        }
+        if (!cuccitaSpawned && (tickCount == 1 || (tickCount & 15) == 0)) {
+            spawnLeashedCuccita();
+        }
 
         if (rangedCooldown > 0) rangedCooldown--;
 
@@ -149,23 +151,23 @@ public class RavagerHunterEntity extends Raider implements IActionStateMob, IUsi
                     setActionState(RavagerHunterAnimationIndex.anims_bowwalk);
                     equipBow();
                 }
-                //BrawlerActionSelector.INSTANCE.evaluateAndChoose(this, target, getX(), getY(), getZ());
             }
         }
     }
 
-//    private void spawnLeashedCuccita() {
-//        if (!(level() instanceof ServerLevel server)) return;
-//
-//        CuccitaEntity cuccita = InvasioncoderedsweegyportModEntities.CUCCITA.get().create(server);
-//        if (cuccita == null) return;
-//
-//        cuccita.moveTo(getX() + 1.0D, getY(), getZ() + 0.5D, getYRot(), 0.0F);
-//        if (server.addFreshEntity(cuccita)) {
-//            cuccita.setLeashedTo(this, true);
-//            cuccitaSpawned = true;
-//        }
-//    }
+    private void spawnLeashedCuccita() {
+        if (!(level() instanceof ServerLevel server)) return;
+
+        CuccitaEntity cuccita = InvasioncoderedsweegyportModEntities.CUCCITA.get().create(server);
+        if (cuccita == null) return;
+
+        cuccita.setOwner(this);
+        cuccita.moveTo(getX() + 1.0D, getY(), getZ() + 0.5D, getYRot(), 0.0F);
+        if (server.addFreshEntity(cuccita)) {
+            cuccita.setLeashedTo(this, true);
+            cuccitaSpawned = true;
+        }
+    }
 
     private void handleClientTick() {
         // Animation IDs in BrawlerAnimationIndex start at 1; the array is zero-based.
@@ -317,6 +319,23 @@ public class RavagerHunterEntity extends Raider implements IActionStateMob, IUsi
 //        super.onAddedToWorld();
 //        if (!level().isClientSide() && getMainHandItem().isEmpty()) equipForMode();
 //    }
+
+    public boolean isAlliedTo(Entity p_32665_) {
+        if (p_32665_ == null) {
+            return false;
+        } else if (p_32665_ == this) {
+            return true;
+        } else if (super.isAlliedTo(p_32665_)) {
+            return true;
+        }
+//		else if (p_32665_ instanceof LivingEntity && ((LivingEntity) p_32665_).getMobType() == MobType.ILLAGER) {
+//			return this.getTeam() == null && p_32665_.getTeam() == null;
+//		}
+        else {
+            return p_32665_ instanceof CuccitaEntity;
+        }
+    }
+
     @Override
     public float getFadeInTime(float partialTicks) {
         return simpleFade.getFadeInTime(partialTicks);
@@ -351,23 +370,13 @@ public class RavagerHunterEntity extends Raider implements IActionStateMob, IUsi
     }
 
     @Override
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.VINDICATOR_AMBIENT;
-    }
-
-    @Override
-    protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.VINDICATOR_HURT;
-    }
-
-    @Override
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.VINDICATOR_DEATH;
+    public SoundEvent getHurtSound(DamageSource ds) {
+        return InvasioncoderedsweegyportModSounds.RAVAGER_HUNTER_HURT.get();
     }
 
     @Override
     public SoundEvent getCelebrateSound() {
-        return SoundEvents.VINDICATOR_CELEBRATE;
+        return SoundEvents.EMPTY;
     }
 
     @Override

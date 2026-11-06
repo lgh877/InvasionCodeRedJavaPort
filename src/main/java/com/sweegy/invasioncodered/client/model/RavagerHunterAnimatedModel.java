@@ -85,6 +85,7 @@ public class RavagerHunterAnimatedModel extends ModelRavagerHunter<RavagerHunter
 
     @Override
     public void translateToHead(PoseStack poseStack) {
+        whole.translateAndRotate(poseStack);
         bone3.translateAndRotate(poseStack);
         head.translateAndRotate(poseStack);
         trueHead.translateAndRotate(poseStack);

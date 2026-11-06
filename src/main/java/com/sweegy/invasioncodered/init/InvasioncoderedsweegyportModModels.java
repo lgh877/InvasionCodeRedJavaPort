@@ -23,5 +23,6 @@ public class InvasioncoderedsweegyportModModels {
 		event.registerLayerDefinition(ModelgashslitHeadArmor.LAYER_LOCATION, ModelgashslitHeadArmor::createBodyLayer);
 		event.registerLayerDefinition(ModelGashslitChestplate.LAYER_LOCATION, ModelGashslitChestplate::createBodyLayer);
         event.registerLayerDefinition(GashslitLeggingsAnimatedModel.LAYER_LOCATION, GashslitLeggingsAnimatedModel::createBodyLayer);
+        event.registerLayerDefinition(ModelCuccita.LAYER_LOCATION, ModelCuccita::createBodyLayer);
 	}
 }

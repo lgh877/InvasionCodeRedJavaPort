@@ -20,7 +20,7 @@ public class RavagerHunterBlockAction {
         mob.setYHeadRot(mob.yBodyRot);
         if (actionTicks == 0) {
             mob.setInAction(true);
-            mob.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, mob.nextBlockDuration, 1, false, false));
+            mob.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, mob.nextBlockDuration, 5, false, false));
         } else if (actionTicks > mob.nextBlockDuration) {
             mob.setInAction(false);
             mob.setActionState(RavagerHunterAnimationIndex.anims_aggressive);

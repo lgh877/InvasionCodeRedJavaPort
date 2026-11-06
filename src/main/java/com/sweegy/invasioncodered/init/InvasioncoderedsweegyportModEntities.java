@@ -36,7 +36,7 @@ public class InvasioncoderedsweegyportModEntities {
 					.sized(0.7f, 1.9f));
     public static final RegistryObject<EntityType<CuccitaEntity>> CUCCITA = register("cuccita",
 			EntityType.Builder.<CuccitaEntity>of(CuccitaEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CuccitaEntity::new)
-					.sized(0.7f, 1.9f));
+					.sized(0.8f, 0.8f));
 	public static final RegistryObject<EntityType<GashSlitSlashProjectileEntity>> GASH_SLIT_SLASH_PROJECTILE = register("gash_slit_slash_projectile",
 			EntityType.Builder.<GashSlitSlashProjectileEntity>of(GashSlitSlashProjectileEntity::new, MobCategory.MISC).setCustomClientFactory(GashSlitSlashProjectileEntity::new).setShouldReceiveVelocityUpdates(true).setTrackingRange(64)
 					.setUpdateInterval(1).sized(0.5f, 0.5f));
@@ -69,5 +69,6 @@ public class InvasioncoderedsweegyportModEntities {
 		event.put(GASHSLIT_DRAGON.get(), GashslitDragonEntity.createAttributes().build());
 		event.put(STONE_CUTTER_MAN.get(), StoneCutterManEntity.createAttributes().build());
 		event.put(RAVAGER_HUNTER.get(), RavagerHunterEntity.createAttributes().build());
+		event.put(CUCCITA.get(), CuccitaEntity.createAttributes().build());
 	}
 }

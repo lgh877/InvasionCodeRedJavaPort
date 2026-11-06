@@ -8,7 +8,7 @@ import net.minecraft.world.phys.Vec2;
 
 public class RavagerHunterBowActiveAction {
     public static void execute(LevelAccessor world, RavagerHunterEntity mob, double x, double y, double z) {
-        if((mob.tickCount & 63) == 0){
+        if((mob.tickCount & 15) == 0 && mob.getRandom().nextBoolean()){
             LivingEntity target = mob.getTarget();
             if(target != null && target.isAlive()){
                 double flatDist = new Vec2((float) (target.getX() - mob.getX()), (float) (target.getZ() - mob.getZ())).length();

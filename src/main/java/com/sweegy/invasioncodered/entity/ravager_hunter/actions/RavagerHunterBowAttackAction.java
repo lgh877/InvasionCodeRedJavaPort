@@ -44,7 +44,6 @@ public class RavagerHunterBowAttackAction {
                 arrow.shoot(dx, dy + horizontal * 0.2D, dz, 1.6F, 8.0F);
                 mob.level().addFreshEntity(arrow);
                 mob.playSound(SoundEvents.ARROW_SHOOT, 1.0F, 1.0F);
-                if(mob.getRandom().nextFloat() > 0.5f) mob.actionTicks = 5;
             }
             mob.rangedCooldown = 20 + mob.getRandom().nextInt(21);
         } else if (actionTicks > 24) {
