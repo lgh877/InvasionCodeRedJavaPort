@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.model.geom.ModelPart;
 
 import com.sweegy.invasioncodered.entity.gashslit.GashslitEntity;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelsusanogashslit;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelSusanoGashslit;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -20,12 +20,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 public class GashslitSusanooLayer extends RenderLayer<GashslitEntity, GashslitAnimatedModel> {
     private static final ResourceLocation LAYER_TEXTURE = ResourceLocation.tryParse("invasioncodered:textures/entities/rage_glint4.png");
     private static final ResourceLocation LAYER_TEXTURE2 = ResourceLocation.tryParse("invasioncodered:textures/entities/rage_glint.png");
-	private final Modelsusanogashslit<GashslitEntity> model;
+	private final ModelSusanoGashslit<GashslitEntity> model;
 	private final GashslitAnimatedModel parentModel = getParentModel();
 
 	public GashslitSusanooLayer(RenderLayerParent<GashslitEntity, GashslitAnimatedModel> p_117346_, EntityRendererProvider.Context context) {
 		super(p_117346_);
-		model = new Modelsusanogashslit(context.bakeLayer(Modelsusanogashslit.LAYER_LOCATION));
+		model = new ModelSusanoGashslit(context.bakeLayer(ModelSusanoGashslit.LAYER_LOCATION));
 	}
 
 	@Override

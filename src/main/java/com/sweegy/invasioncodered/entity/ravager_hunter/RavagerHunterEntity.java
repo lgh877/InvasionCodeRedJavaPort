@@ -1,11 +1,11 @@
-package com.sweegy.invasioncodered.entity.brawler;
+package com.sweegy.invasioncodered.entity.ravager_hunter;
 
-import com.sweegy.invasioncodered.client.model.animations.indices.BrawlerAnimationIndex;
+import com.sweegy.invasioncodered.client.model.animations.indices.RavagerHunterAnimationIndex;
 import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.entity.ai.DoNothingGoal;
 import com.sweegy.invasioncodered.entity.ai.actions.ActionCommand;
-import com.sweegy.invasioncodered.entity.brawler.actions.BrawlerActions;
-import com.sweegy.invasioncodered.entity.brawler.actions.BrawlerPursuitGoal;
+import com.sweegy.invasioncodered.entity.ravager_hunter.actions.RavagerHunterActions;
+import com.sweegy.invasioncodered.entity.ravager_hunter.actions.RavagerHunterPursuitGoal;
 import com.sweegy.invasioncodered.interfaces.SimpleFadingOutAnimation;
 import com.sweegy.invasioncodered.interfaces.IActionStateMob;
 import com.sweegy.invasioncodered.interfaces.IUsingSimpleFadingAnims;
@@ -45,9 +45,9 @@ import net.minecraftforge.network.PlayMessages;
 
 import javax.annotation.Nullable;
 
-public class BrawlerEntity extends Raider implements IActionStateMob, IUsingSimpleFadingAnims {
-    private static final EntityDataAccessor<Integer> DATA_ACTION_STATE = SynchedEntityData.defineId(BrawlerEntity.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Boolean> DATA_IN_ACTION = SynchedEntityData.defineId(BrawlerEntity.class, EntityDataSerializers.BOOLEAN);
+public class RavagerHunterEntity extends Raider implements IActionStateMob, IUsingSimpleFadingAnims {
+    private static final EntityDataAccessor<Integer> DATA_ACTION_STATE = SynchedEntityData.defineId(RavagerHunterEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> DATA_IN_ACTION = SynchedEntityData.defineId(RavagerHunterEntity.class, EntityDataSerializers.BOOLEAN);
 
     public int actionTicks, actionProgress;
     public int rangedCooldown;
@@ -56,18 +56,18 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingSimp
 
     public boolean blockAfterMelee;
     private boolean cuccitaSpawned;
-    private ActionCommand<BrawlerEntity> currentAction;
+    private ActionCommand<RavagerHunterEntity> currentAction;
 
     // Client-side AnimationDefinition timer and exactly ONE outgoing animation.
     private final SimpleFadingAnimationController simpleFade =
             new SimpleFadingAnimationController(5.0F, 5.0F);
     private final EntityModelCache animCache = new EntityModelCache();
 
-    public BrawlerEntity(PlayMessages.SpawnEntity packet, Level world) {
-        this(InvasioncoderedsweegyportModEntities.BRAWLER.get(), world);
+    public RavagerHunterEntity(PlayMessages.SpawnEntity packet, Level world) {
+        this(InvasioncoderedsweegyportModEntities.RAVAGER_HUNTER.get(), world);
     }
 
-    public BrawlerEntity(EntityType<BrawlerEntity> type, Level level) {
+    public RavagerHunterEntity(EntityType<RavagerHunterEntity> type, Level level) {
         super(type, level);
         this.xpReward = 10;
         setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));
@@ -94,11 +94,11 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingSimp
     protected void registerGoals() {
         lookControl = new LookControl(this) {
             protected boolean resetXRotOnTick() {
-                return !BrawlerEntity.this.isInAction();
+                return !RavagerHunterEntity.this.isInAction();
             }
         };
         goalSelector.addGoal(0, new DoNothingGoal<>(this));
-        goalSelector.addGoal(1, new BrawlerPursuitGoal(this));
+        goalSelector.addGoal(1, new RavagerHunterPursuitGoal(this));
         goalSelector.addGoal(2, new FloatGoal(this));
         goalSelector.addGoal(5, new RandomStrollGoal(this, 1.0D));
         goalSelector.addGoal(7, new RandomLookAroundGoal(this));
@@ -143,10 +143,10 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingSimp
                         yDiff < getBbHeight() && yDiff > -target.getBbHeight() &&
                                 flatDist < minDist + getBbWidth() * 10;
                 if(isInMeleeRadius){
-                    setActionState(BrawlerAnimationIndex.anims_aggressive);
+                    setActionState(RavagerHunterAnimationIndex.anims_aggressive);
                     equipAxe();
                 }else{
-                    setActionState(BrawlerAnimationIndex.anims_bowwalk);
+                    setActionState(RavagerHunterAnimationIndex.anims_bowwalk);
                     equipBow();
                 }
                 //BrawlerActionSelector.INSTANCE.evaluateAndChoose(this, target, getX(), getY(), getZ());
@@ -171,23 +171,23 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingSimp
         // Animation IDs in BrawlerAnimationIndex start at 1; the array is zero-based.
         // State 0 (idle) maps to -1, allowing the previous action to fade out.
         // transitionTo() ignores repeated IDs, so looping poses do NOT restart each tick.
-        simpleFade.transitionTo(getActionState() - 1);
+//        simpleFade.transitionTo(getActionState() - 1);
         simpleFade.tick();
 
         this.armAnimAmpO = this.armAnimAmp;
         this.legAnimAmpO = this.legAnimAmp;
 
         switch(getActionState()){
-            case BrawlerAnimationIndex.anims_block:
-            case BrawlerAnimationIndex.anims_bowstay:
+            case RavagerHunterAnimationIndex.anims_block:
+            case RavagerHunterAnimationIndex.anims_bowstay:
                 armAnimAmp = Math.max(this.armAnimAmp - 1, 0);
                 legAnimAmp = Math.max(this.legAnimAmp - 1, 0);
                 break;
-            case BrawlerAnimationIndex.anims_bowwalk:
+            case RavagerHunterAnimationIndex.anims_bowwalk:
                 armAnimAmp = Math.max(this.armAnimAmp - 1, 0);
                 legAnimAmp = Math.min(this.legAnimAmp + 1, 5);
                 break;
-            case BrawlerAnimationIndex.anims_aggressive :
+            case RavagerHunterAnimationIndex.anims_aggressive :
                 armAnimAmp = armAnimAmp > 2
                         ? Math.max(this.armAnimAmp - 1, 2)
                         : Math.min(this.armAnimAmp + 1, 2);
@@ -199,6 +199,13 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingSimp
                 break;
         }
 
+    }
+
+    public void onSyncedDataUpdated(EntityDataAccessor<?> p_21104_) {
+        super.onSyncedDataUpdated(p_21104_);
+        if (level().isClientSide()) {
+            if (p_21104_.equals(DATA_ACTION_STATE)) simpleFade.transitionTo(getActionState() - 1);
+        }
     }
 
     public float getArmAnimAmp(float partialTicks){
@@ -214,7 +221,7 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingSimp
 
     public void setActionState(int state) {
         entityData.set(DATA_ACTION_STATE, state);
-        currentAction = BrawlerActions.COMMAND_MAP.get(state);
+        currentAction = RavagerHunterActions.COMMAND_MAP.get(state);
         actionTicks = 0;
         actionProgress = 0;
     }
@@ -259,7 +266,7 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingSimp
         super.readAdditionalSaveData(tag);
         if (tag.contains("DataactionState")) {
             this.entityData.set(DATA_ACTION_STATE, tag.getInt("DataactionState"));
-            currentAction = BrawlerActions.COMMAND_MAP.get(entityData.get(DATA_ACTION_STATE));
+            currentAction = RavagerHunterActions.COMMAND_MAP.get(entityData.get(DATA_ACTION_STATE));
         }
         cuccitaSpawned = tag.getBoolean("BrawlerCuccitaSpawned");
     }
@@ -339,7 +346,7 @@ public class BrawlerEntity extends Raider implements IActionStateMob, IUsingSimp
     @Override
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_34297_, DifficultyInstance p_34298_, MobSpawnType p_34299_, @Nullable SpawnGroupData p_34300_, @Nullable CompoundTag p_34301_) {
-        EntityUtil.setConfigattribute(this, InvasionCodeRedConfig.BRAWLER_HEALTH_MULTIPLIER.get());
+        EntityUtil.setConfigattribute(this, InvasionCodeRedConfig.RAVAGER_HUNTER_HEALTH_MULTIPLIER.get());
         return super.finalizeSpawn(p_34297_, p_34298_, p_34299_, p_34300_, p_34301_);
     }
 

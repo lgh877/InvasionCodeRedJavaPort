@@ -28,7 +28,7 @@ public class InvasioncoderedsweegyportModItems {
     public static final RegistryObject<Item> CURSED_ARMOR_BOOTS;
     public static final RegistryObject<Item> RED_COIN;
     public static final RegistryObject<Item> STONE_CUTTER_MAN_SPAWN_EGG;
-    public static final RegistryObject<Item> BRAWLER_SPAWN_EGG;
+    public static final RegistryObject<Item> RAVAGER_HUNTER_SPAWN_EGG;
 
     static {
         GASHSLIT_SPAWN_EGG = REGISTRY.register("gashslit_spawn_egg", () -> new ForgeSpawnEggItem(InvasioncoderedsweegyportModEntities.GASHSLIT, -1, -1, new Item.Properties()) {
@@ -43,7 +43,7 @@ public class InvasioncoderedsweegyportModItems {
                 return ((MutableComponent) super.getName(stack)).withStyle(ChatFormatting.GRAY);
             }
         });
-        BRAWLER_SPAWN_EGG = REGISTRY.register("brawler_spawn_egg", () -> new ForgeSpawnEggItem(InvasioncoderedsweegyportModEntities.BRAWLER, -1, -1, new Item.Properties()) {
+        RAVAGER_HUNTER_SPAWN_EGG = REGISTRY.register("ravager_hunter_spawn_egg", () -> new ForgeSpawnEggItem(InvasioncoderedsweegyportModEntities.RAVAGER_HUNTER, -1, -1, new Item.Properties()) {
             @Override
             public Component getName(ItemStack stack) {
                 return ((MutableComponent) super.getName(stack)).withStyle(ChatFormatting.GRAY);

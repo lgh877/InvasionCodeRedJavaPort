@@ -10,7 +10,7 @@ import net.minecraft.client.animation.AnimationChannel;
  * Exported for Minecraft version 1.19 or later with Mojang mappings
  * @author Author
  */
-public class brawlerAnimation {
+public class RavagerHunterAnimation {
     public static final AnimationDefinition bowstay = AnimationDefinition.Builder.withLength(0.3333F).looping()
             .addAnimation("LeftLeg", new AnimationChannel(AnimationChannel.Targets.POSITION,
                     new Keyframe(0.0F, KeyframeAnimations.posVec(0.0F, 0.0F, -4.0F), AnimationChannel.Interpolations.LINEAR)

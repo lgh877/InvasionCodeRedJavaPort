@@ -2,12 +2,12 @@ package com.sweegy.invasioncodered.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.sweegy.invasioncodered.client.model.animations.indices.BrawlerAnimationIndex;
+import com.sweegy.invasioncodered.client.model.animations.indices.RavagerHunterAnimationIndex;
 import com.sweegy.invasioncodered.client.model.base.SimpleFadingAnimsModel;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelbrawler;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelRavagerHunter;
 import com.sweegy.invasioncodered.client.renderer.layer.IHierachicalHeadedModel;
 import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
-import com.sweegy.invasioncodered.entity.brawler.BrawlerEntity;
+import com.sweegy.invasioncodered.entity.ravager_hunter.RavagerHunterEntity;
 import com.sweegy.invasioncodered.util.animation.EntityModelCache;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -15,27 +15,27 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 
 
-public class BrawlerAnimatedModel extends Modelbrawler<BrawlerEntity> implements IHierachicalHeadedModel, ArmedModel {
+public class RavagerHunterAnimatedModel extends ModelRavagerHunter<RavagerHunterEntity> implements IHierachicalHeadedModel, ArmedModel {
     private final ModelPart root;
     private final ModelPart[] allPartsFlat;
 
-    private final SimpleFadingAnimsModel<BrawlerEntity> animator = new SimpleFadingAnimsModel<>() {
+    private final SimpleFadingAnimsModel<RavagerHunterEntity> animator = new SimpleFadingAnimsModel<>() {
         @Override
         public ModelPart root() { return root; }
 
         @Override
-        public void setupAnim(BrawlerEntity entity, float limbSwing, float limbSwingAmount,
+        public void setupAnim(RavagerHunterEntity entity, float limbSwing, float limbSwingAmount,
                               float ageInTicks, float netHeadYaw, float headPitch) {
             float partialTicks = ageInTicks - entity.tickCount;
             for (ModelPart part : allPartsFlat) {
                 part.resetPose();
             }
-            applyFadingAnims(entity, partialTicks, BrawlerAnimationIndex.anims);
+            applyFadingAnims(entity, partialTicks, RavagerHunterAnimationIndex.anims);
         }
 
     };
 
-    public BrawlerAnimatedModel(ModelPart root) {
+    public RavagerHunterAnimatedModel(ModelPart root) {
         super(root);
         this.root = root;
         this.allPartsFlat = root.getAllParts().toArray(ModelPart[]::new);
@@ -44,9 +44,9 @@ public class BrawlerAnimatedModel extends Modelbrawler<BrawlerEntity> implements
     public ModelPart root() { return root; }
 
     @Override
-    public void setupAnim(BrawlerEntity entity, float limbSwing, float limbSwingAmount,
+    public void setupAnim(RavagerHunterEntity entity, float limbSwing, float limbSwingAmount,
                           float ageInTicks, float netHeadYaw, float headPitch) {
-        int currentStep = (int) (ageInTicks * InvasionCodeRedConfig.BRAWLER_ANIM_FRAME.get() * 0.05F);
+        int currentStep = (int) (ageInTicks * InvasionCodeRedConfig.RAVAGER_HUNTER_ANIM_FRAME.get() * 0.05F);
         float partialTicks = ageInTicks - entity.tickCount;
         EntityModelCache cache = entity.getAnimCache();
         if (!cache.canReuse(currentStep)) {

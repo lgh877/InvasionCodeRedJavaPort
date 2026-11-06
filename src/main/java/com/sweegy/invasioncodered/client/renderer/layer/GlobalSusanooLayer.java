@@ -2,7 +2,7 @@ package com.sweegy.invasioncodered.client.renderer.layer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelsusanogashslit;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelSusanoGashslit;
 import com.sweegy.invasioncodered.client.renderer.CustomRenderTypes;
 import com.sweegy.invasioncodered.event.susanoo.SusanooAlphaManager;
 import net.minecraft.client.model.EntityModel;
@@ -20,11 +20,11 @@ public class GlobalSusanooLayer<T extends LivingEntity, M extends EntityModel<T>
     private static final ResourceLocation LAYER_TEXTURE = ResourceLocation.tryParse("invasioncodered:textures/entities/rage_glint4.png");
     private static final ResourceLocation LAYER_TEXTURE2 = ResourceLocation.tryParse("invasioncodered:textures/entities/rage_glint.png");
 
-    private final Modelsusanogashslit<T> sharedModel;
+    private final ModelSusanoGashslit<T> sharedModel;
 
     private final ModelPart[] sharedModelPartsFlat;
 
-    public GlobalSusanooLayer(RenderLayerParent<T, M> parent, Modelsusanogashslit<T> sharedModel) {
+    public GlobalSusanooLayer(RenderLayerParent<T, M> parent, ModelSusanoGashslit<T> sharedModel) {
         super(parent);
         this.sharedModel = sharedModel;
         this.sharedModelPartsFlat = sharedModel.whole.getAllParts().toArray(ModelPart[]::new);

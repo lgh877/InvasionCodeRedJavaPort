@@ -15,7 +15,7 @@ import net.minecraft.client.model.EntityModel;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-public class Modelstonecutterman<T extends Entity> extends EntityModel<T> {
+public class ModelStonecutterMan<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.tryParse("invasioncodered:modelstonecutterman"), "main");
     public final ModelPart whole;
@@ -32,7 +32,7 @@ public class Modelstonecutterman<T extends Entity> extends EntityModel<T> {
     public final ModelPart LeftLeg;
     public final ModelPart RightLeg;
 
-    public Modelstonecutterman(ModelPart root) {
+    public ModelStonecutterMan(ModelPart root) {
         this.whole = root.getChild("whole");
         this.bone3 = this.whole.getChild("bone3");
         this.trueHead = this.bone3.getChild("trueHead");

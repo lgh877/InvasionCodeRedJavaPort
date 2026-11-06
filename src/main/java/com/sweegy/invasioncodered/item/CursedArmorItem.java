@@ -34,9 +34,9 @@ import java.util.Map;
 import java.util.Collections;
 
 import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModItems;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit_head_armor;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit_chestplate;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit_boots;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelgashslitHeadArmor;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelGashslitChestplate;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelGashslitBoots;
 import com.sweegy.invasioncodered.client.model.GashslitLeggingsAnimatedModel;
 
 public abstract class CursedArmorItem extends ArmorItem implements ICustomGlint {
@@ -127,7 +127,7 @@ public abstract class CursedArmorItem extends ArmorItem implements ICustomGlint 
 				public HumanoidModel getHumanoidArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel defaultModel) {
 					if (armorModel == null) {
 						armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(),
-								Map.of("head", new Modelgashslit_head_armor(Minecraft.getInstance().getEntityModels().bakeLayer(Modelgashslit_head_armor.LAYER_LOCATION)).head, "hat", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
+								Map.of("head", new ModelgashslitHeadArmor(Minecraft.getInstance().getEntityModels().bakeLayer(ModelgashslitHeadArmor.LAYER_LOCATION)).head, "hat", new ModelPart(Collections.emptyList(), Collections.emptyMap()),
 										"body", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "left_arm",
 										new ModelPart(Collections.emptyList(), Collections.emptyMap()), "right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "left_leg",
 										new ModelPart(Collections.emptyList(), Collections.emptyMap()))));
@@ -160,7 +160,7 @@ public abstract class CursedArmorItem extends ArmorItem implements ICustomGlint 
 				@OnlyIn(Dist.CLIENT)
 				public HumanoidModel getHumanoidArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel defaultModel) {
 					if (armorModel == null) {
-						Modelgashslit_chestplate model = new Modelgashslit_chestplate(Minecraft.getInstance().getEntityModels().bakeLayer(Modelgashslit_chestplate.LAYER_LOCATION));
+						ModelGashslitChestplate model = new ModelGashslitChestplate(Minecraft.getInstance().getEntityModels().bakeLayer(ModelGashslitChestplate.LAYER_LOCATION));
 						armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(),
 								Map.of("body", model.Body, "left_arm", model.LeftArm, "right_arm", model.RightArm, "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "hat",
 										new ModelPart(Collections.emptyList(), Collections.emptyMap()), "right_leg", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "left_leg",
@@ -226,7 +226,7 @@ public abstract class CursedArmorItem extends ArmorItem implements ICustomGlint 
 				@OnlyIn(Dist.CLIENT)
 				public HumanoidModel getHumanoidArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, HumanoidModel defaultModel) {
 					if (armorModel == null) {
-						Modelgashslit_boots model = new Modelgashslit_boots(Minecraft.getInstance().getEntityModels().bakeLayer(Modelgashslit_boots.LAYER_LOCATION));
+						ModelGashslitBoots model = new ModelGashslitBoots(Minecraft.getInstance().getEntityModels().bakeLayer(ModelGashslitBoots.LAYER_LOCATION));
 						armorModel = new HumanoidModel(new ModelPart(Collections.emptyList(),
 								Map.of("left_leg", model.LeftLeg, "right_leg", model.RightLeg, "head", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "hat", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "body",
 										new ModelPart(Collections.emptyList(), Collections.emptyMap()), "right_arm", new ModelPart(Collections.emptyList(), Collections.emptyMap()), "left_arm",

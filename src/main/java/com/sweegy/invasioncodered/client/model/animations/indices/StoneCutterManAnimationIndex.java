@@ -1,30 +1,30 @@
 package com.sweegy.invasioncodered.client.model.animations.indices;
 
-import com.sweegy.invasioncodered.client.model.animations.stonecuttermanAnimation;
+import com.sweegy.invasioncodered.client.model.animations.StonecutterManAnimation;
 import net.minecraft.client.animation.AnimationDefinition;
 
 public class StoneCutterManAnimationIndex {
     public static final AnimationDefinition anims[] = {//
-            stonecuttermanAnimation.dead, //
-            stonecuttermanAnimation.runningpose, //
-            stonecuttermanAnimation.attack, //
-            stonecuttermanAnimation.attack2, //
-            stonecuttermanAnimation.attack3, //
-            stonecuttermanAnimation.ram, //
-            stonecuttermanAnimation.air, //
-            stonecuttermanAnimation.divedown, //
-            stonecuttermanAnimation.spin, //
-            stonecuttermanAnimation.spam, //
-            stonecuttermanAnimation.intro, //
-            stonecuttermanAnimation.dig, //
-            stonecuttermanAnimation.knocked, //
-            stonecuttermanAnimation.sidemove, //
-            stonecuttermanAnimation.sidemove2, //
-            stonecuttermanAnimation.airland, //
-            stonecuttermanAnimation.digattack, //
-            stonecuttermanAnimation.uppercut, //
-            stonecuttermanAnimation.Explode, //
-            stonecuttermanAnimation.prepare_spin, //
+            StonecutterManAnimation.dead, //
+            StonecutterManAnimation.runningpose, //
+            StonecutterManAnimation.attack, //
+            StonecutterManAnimation.attack2, //
+            StonecutterManAnimation.attack3, //
+            StonecutterManAnimation.ram, //
+            StonecutterManAnimation.air, //
+            StonecutterManAnimation.divedown, //
+            StonecutterManAnimation.spin, //
+            StonecutterManAnimation.spam, //
+            StonecutterManAnimation.intro, //
+            StonecutterManAnimation.dig, //
+            StonecutterManAnimation.knocked, //
+            StonecutterManAnimation.sidemove, //
+            StonecutterManAnimation.sidemove2, //
+            StonecutterManAnimation.airland, //
+            StonecutterManAnimation.digattack, //
+            StonecutterManAnimation.uppercut, //
+            StonecutterManAnimation.Explode, //
+            StonecutterManAnimation.prepare_spin, //
     };
 
     public static final int

@@ -12,16 +12,16 @@ import com.sweegy.invasioncodered.client.model.*;
 public class InvasioncoderedsweegyportModModels {
 	@SubscribeEvent
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-		event.registerLayerDefinition(Modelgashslit_boots.LAYER_LOCATION, Modelgashslit_boots::createBodyLayer);
-		event.registerLayerDefinition(Modelgashslit_leggings.LAYER_LOCATION, Modelgashslit_leggings::createBodyLayer);
-		event.registerLayerDefinition(Modelgashslit.LAYER_LOCATION, Modelgashslit::createBodyLayer);
-		event.registerLayerDefinition(Modelstonecutterman.LAYER_LOCATION, Modelstonecutterman::createBodyLayer);
-		event.registerLayerDefinition(Modelbrawler.LAYER_LOCATION, Modelbrawler::createBodyLayer);
-		event.registerLayerDefinition(Modelsusanogashslit.LAYER_LOCATION, Modelsusanogashslit::createBodyLayer);
-		event.registerLayerDefinition(Modelgashslit_slash.LAYER_LOCATION, Modelgashslit_slash::createBodyLayer);
-		event.registerLayerDefinition(Modelgashslitdragon.LAYER_LOCATION, Modelgashslitdragon::createBodyLayer);
-		event.registerLayerDefinition(Modelgashslit_head_armor.LAYER_LOCATION, Modelgashslit_head_armor::createBodyLayer);
-		event.registerLayerDefinition(Modelgashslit_chestplate.LAYER_LOCATION, Modelgashslit_chestplate::createBodyLayer);
+		event.registerLayerDefinition(ModelGashslitBoots.LAYER_LOCATION, ModelGashslitBoots::createBodyLayer);
+		event.registerLayerDefinition(ModelGashslitLeggings.LAYER_LOCATION, ModelGashslitLeggings::createBodyLayer);
+		event.registerLayerDefinition(ModelGashslit.LAYER_LOCATION, ModelGashslit::createBodyLayer);
+		event.registerLayerDefinition(ModelStonecutterMan.LAYER_LOCATION, ModelStonecutterMan::createBodyLayer);
+		event.registerLayerDefinition(ModelRavagerHunter.LAYER_LOCATION, ModelRavagerHunter::createBodyLayer);
+		event.registerLayerDefinition(ModelSusanoGashslit.LAYER_LOCATION, ModelSusanoGashslit::createBodyLayer);
+		event.registerLayerDefinition(ModelGashslitSlash.LAYER_LOCATION, ModelGashslitSlash::createBodyLayer);
+		event.registerLayerDefinition(ModelGashslitDragon.LAYER_LOCATION, ModelGashslitDragon::createBodyLayer);
+		event.registerLayerDefinition(ModelgashslitHeadArmor.LAYER_LOCATION, ModelgashslitHeadArmor::createBodyLayer);
+		event.registerLayerDefinition(ModelGashslitChestplate.LAYER_LOCATION, ModelGashslitChestplate::createBodyLayer);
         event.registerLayerDefinition(GashslitLeggingsAnimatedModel.LAYER_LOCATION, GashslitLeggingsAnimatedModel::createBodyLayer);
 	}
 }

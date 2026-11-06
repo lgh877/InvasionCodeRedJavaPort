@@ -22,9 +22,9 @@ public class InvasionCodeRedConfig {
     public static final ForgeConfigSpec.ConfigValue<Double> STONE_CUTTER_MAN_HEALTH_MULTIPLIER;
     public static final ForgeConfigSpec.ConfigValue<Double> STONE_CUTTER_MAN_DAMAGE_MULTIPLIER;
     public static final ForgeConfigSpec.ConfigValue<Float> STONE_CUTTER_MAN_ANIM_FRAME;
-    public static final ForgeConfigSpec.ConfigValue<Double> BRAWLER_HEALTH_MULTIPLIER;
-    public static final ForgeConfigSpec.ConfigValue<Double> BRAWLER_DAMAGE_MULTIPLIER;
-    public static final ForgeConfigSpec.ConfigValue<Float> BRAWLER_ANIM_FRAME;
+    public static final ForgeConfigSpec.ConfigValue<Double> RAVAGER_HUNTER_HEALTH_MULTIPLIER;
+    public static final ForgeConfigSpec.ConfigValue<Double> RAVAGER_HUNTER_DAMAGE_MULTIPLIER;
+    public static final ForgeConfigSpec.ConfigValue<Float> RAVAGER_HUNTER_ANIM_FRAME;
 
     public static final ForgeConfigSpec.ConfigValue<List<? extends String>> CUSTOM_RAIDER_LIST;
 
@@ -53,10 +53,10 @@ public class InvasionCodeRedConfig {
         STONE_CUTTER_MAN_SIDE_MOVE_CHANCE = BUILDER.comment("Sets StoneCutterMan's chance to use side move when attacked. Cacluated with knock chance is added.").define("Side Move Chance", 10);
         BUILDER.pop();
 
-        BUILDER.push("Brawler Details");
-        BRAWLER_HEALTH_MULTIPLIER = BUILDER.comment("Multiplies health of Brawler").define("Health Multiplier", (double) 1);
-        BRAWLER_DAMAGE_MULTIPLIER = BUILDER.comment("Multiplies damage of Brawler").define("Damage Multiplier", (double) 1);
-        BRAWLER_ANIM_FRAME = BUILDER.comment("Sets the max framerate of Brawler's animation\nGood for FPS optimization or funny look if you set the frame low").define("Framerate controller", 60f);
+        BUILDER.push("Ravager Hunter Details");
+        RAVAGER_HUNTER_HEALTH_MULTIPLIER = BUILDER.comment("Multiplies health of Ravager Hunter").define("Health Multiplier", (double) 1);
+        RAVAGER_HUNTER_DAMAGE_MULTIPLIER = BUILDER.comment("Multiplies damage of Ravager Hunter").define("Damage Multiplier", (double) 1);
+        RAVAGER_HUNTER_ANIM_FRAME = BUILDER.comment("Sets the max framerate of Ravager Hunter's animation\nGood for FPS optimization or funny look if you set the frame low").define("Framerate controller", 60f);
         BUILDER.pop();
 
         BUILDER.push("Custom Raiders");

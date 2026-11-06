@@ -7,14 +7,14 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.HierarchicalModel;
 
 import com.sweegy.invasioncodered.entity.gashslit.GashslitDragonEntity;
-import com.sweegy.invasioncodered.client.model.animations.gashslitdragonAnimation;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslitdragon;
+import com.sweegy.invasioncodered.client.model.animations.GashslitDragonAnimation;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelGashslitDragon;
 
-public class GashslitDragonRenderer extends MobRenderer<GashslitDragonEntity, Modelgashslitdragon<GashslitDragonEntity>> {
+public class GashslitDragonRenderer extends MobRenderer<GashslitDragonEntity, ModelGashslitDragon<GashslitDragonEntity>> {
     private final ResourceLocation entityTexture = ResourceLocation.tryParse("invasioncodered:textures/entities/gashslitdragon.png");
 
 	public GashslitDragonRenderer(EntityRendererProvider.Context context) {
-		super(context, new AnimatedModel(context.bakeLayer(Modelgashslitdragon.LAYER_LOCATION)), 0.5f);
+		super(context, new AnimatedModel(context.bakeLayer(ModelGashslitDragon.LAYER_LOCATION)), 0.5f);
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class GashslitDragonRenderer extends MobRenderer<GashslitDragonEntity, Mo
 		return entityTexture;
 	}
 
-	private static final class AnimatedModel extends Modelgashslitdragon<GashslitDragonEntity> {
+	private static final class AnimatedModel extends ModelGashslitDragon<GashslitDragonEntity> {
 		private final ModelPart root;
 		private final HierarchicalModel animator = new HierarchicalModel<GashslitDragonEntity>() {
 			@Override
@@ -34,8 +34,8 @@ public class GashslitDragonRenderer extends MobRenderer<GashslitDragonEntity, Mo
 			public void setupAnim(GashslitDragonEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 				this.root().getAllParts().forEach(ModelPart::resetPose);
 				float partialTicks = ageInTicks - entity.tickCount;
-				this.animateWalk(gashslitdragonAnimation.fly, entity.getAnimationTicks(partialTicks), 0.5f, 1f, 1f);
-				this.animateWalk(gashslitdragonAnimation.shoot, 1f, entity.getShootAnimation(partialTicks), 1f, 1f);
+				this.animateWalk(GashslitDragonAnimation.fly, entity.getAnimationTicks(partialTicks), 0.5f, 1f, 1f);
+				this.animateWalk(GashslitDragonAnimation.shoot, 1f, entity.getShootAnimation(partialTicks), 1f, 1f);
 			}
 		};
 

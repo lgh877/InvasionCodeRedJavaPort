@@ -10,7 +10,7 @@ import net.minecraft.client.animation.AnimationChannel;
  * Exported for Minecraft version 1.19 or later with Mojang mappings
  * @author Author
  */
-public class cuccitaAnimation {
+public class CuccitaAnimation {
 	public static final AnimationDefinition pose = AnimationDefinition.Builder.withLength(0.0F).looping()
 		.addAnimation("bone6", new AnimationChannel(AnimationChannel.Targets.ROTATION, 
 			new Keyframe(0.0F, KeyframeAnimations.degreeVec(50.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)

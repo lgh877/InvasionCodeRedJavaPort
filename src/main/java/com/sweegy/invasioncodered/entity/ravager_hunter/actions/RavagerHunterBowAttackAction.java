@@ -1,16 +1,16 @@
-package com.sweegy.invasioncodered.entity.brawler.actions;
+package com.sweegy.invasioncodered.entity.ravager_hunter.actions;
 
-import com.sweegy.invasioncodered.client.model.animations.indices.BrawlerAnimationIndex;
-import com.sweegy.invasioncodered.entity.brawler.BrawlerEntity;
+import com.sweegy.invasioncodered.client.model.animations.indices.RavagerHunterAnimationIndex;
+import com.sweegy.invasioncodered.entity.ravager_hunter.RavagerHunterEntity;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.level.LevelAccessor;
 
-public class BrawlerBowAttackAction {
-    private BrawlerBowAttackAction() {}
+public class RavagerHunterBowAttackAction {
+    private RavagerHunterBowAttackAction() {}
 
-    public static void execute(LevelAccessor world, BrawlerEntity mob, double x, double y, double z) {
+    public static void execute(LevelAccessor world, RavagerHunterEntity mob, double x, double y, double z) {
         int actionTicks = mob.actionTicks++;
         mob.setDeltaMovement(
                 mob.getDeltaMovement().x * 0.5,
@@ -49,7 +49,7 @@ public class BrawlerBowAttackAction {
             mob.rangedCooldown = 20 + mob.getRandom().nextInt(21);
         } else if (actionTicks > 24) {
             mob.setInAction(false);
-            mob.setActionState(BrawlerAnimationIndex.anims_bowwalk);
+            mob.setActionState(RavagerHunterAnimationIndex.anims_bowwalk);
         }
     }
 }

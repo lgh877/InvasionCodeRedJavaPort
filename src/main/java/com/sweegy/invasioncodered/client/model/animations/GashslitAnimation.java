@@ -12,7 +12,7 @@ import net.minecraft.client.animation.AnimationChannel;
  * 
  * @author Author
  */
-public class gashslitAnimation {
+public class GashslitAnimation {
 	public static final AnimationDefinition walk = AnimationDefinition.Builder.withLength(1.5F).looping()
 			.addAnimation("robes", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(0.25F, KeyframeAnimations.degreeVec(17.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.5F, KeyframeAnimations.degreeVec(16.98F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),

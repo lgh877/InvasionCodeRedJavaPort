@@ -1,7 +1,7 @@
 package com.sweegy.invasioncodered.client.model;
 
 import com.sweegy.invasioncodered.client.model.base.FadingAnimsModel;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelGashslit;
 import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.util.animation.AnimUtil;
 import com.sweegy.invasioncodered.interfaces.FadingOutAnimation;
@@ -17,12 +17,12 @@ import net.minecraft.client.animation.AnimationDefinition;
 import java.util.List;
 
 import com.sweegy.invasioncodered.entity.gashslit.GashslitEntity;
-import com.sweegy.invasioncodered.client.model.animations.gashslitAnimation;
+import com.sweegy.invasioncodered.client.model.animations.GashslitAnimation;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
 
-public class GashslitAnimatedModel extends Modelgashslit<GashslitEntity> implements ArmedModel, IHierachicalHeadedModel {
+public class GashslitAnimatedModel extends ModelGashslit<GashslitEntity> implements ArmedModel, IHierachicalHeadedModel {
 
     public final ModelPart root;
     private final ModelPart[] allPartsFlat;
@@ -43,8 +43,8 @@ public class GashslitAnimatedModel extends Modelgashslit<GashslitEntity> impleme
             float legAnimTicks = entity.getLegAnimTicks(partialTicks) * 0.2f;
             applyFadingAnims(entity, partialTicks, GashslitAnimationIndex.anims);
 
-            AnimUtil.animateWalkAmplitude(this, gashslitAnimation.walk, limbSwing, 1f, (1f - legAnimTicks) * limbSwingAmount * 1.5f);
-            AnimUtil.animateWalkAmplitude(this, gashslitAnimation.run, limbSwing, 1.1f, legAnimTicks * limbSwingAmount * 1.5f);
+            AnimUtil.animateWalkAmplitude(this, GashslitAnimation.walk, limbSwing, 1f, (1f - legAnimTicks) * limbSwingAmount * 1.5f);
+            AnimUtil.animateWalkAmplitude(this, GashslitAnimation.run, limbSwing, 1.1f, legAnimTicks * limbSwingAmount * 1.5f);
         }
 
         @Override
@@ -55,7 +55,7 @@ public class GashslitAnimatedModel extends Modelgashslit<GashslitEntity> impleme
 
             if (progress > 0) {
                 progress *= 0.025f;
-                animateWalk(gashslitAnimation.ragepose, 1, progress, 1f, 1f);
+                animateWalk(GashslitAnimation.ragepose, 1, progress, 1f, 1f);
             }
 
             int index = entity.getAnimIndex();

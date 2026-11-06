@@ -1,8 +1,16 @@
 package com.sweegy.invasioncodered.entity.cuccita;
 
-import com.sweegy.invasioncodered.entity.brawler.BrawlerEntity;
+import com.sweegy.invasioncodered.entity.gashslit.GashslitEntity;
+import com.sweegy.invasioncodered.entity.ravager_hunter.RavagerHunterEntity;
 import com.sweegy.invasioncodered.entity.stonecutterman.StoneCutterManEntity;
 import com.sweegy.invasioncodered.init.InvasioncoderedsweegyportModEntities;
+import com.sweegy.invasioncodered.interfaces.IUsingSimpleFadingAnims;
+import com.sweegy.invasioncodered.interfaces.SimpleFadingOutAnimation;
+import com.sweegy.invasioncodered.util.animation.EntityModelCache;
+import com.sweegy.invasioncodered.util.animation.SimpleFadingAnimationController;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -29,11 +37,9 @@ import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.animal.Turtle;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.AbstractVillager;
-import net.minecraft.world.entity.npc.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -44,9 +50,14 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.PlayMessages;
 import org.jetbrains.annotations.Nullable;
 
-public class CuccitaEntity extends TamableAnimal {
+public class CuccitaEntity extends TamableAnimal implements IUsingSimpleFadingAnims {
     private static final double WILD_MAX_HEALTH = 100.0D;
     private static final double TAMED_MAX_HEALTH = 230.0D;
+    public static final EntityDataAccessor<Byte> DATA_actionState = SynchedEntityData.defineId(CuccitaEntity.class, EntityDataSerializers.BYTE);
+
+    private final SimpleFadingAnimationController simpleFade =
+            new SimpleFadingAnimationController(5.0F, 5.0F);
+    private final EntityModelCache animCache = new EntityModelCache();
 
     public CuccitaEntity(PlayMessages.SpawnEntity packet, Level world) {
         this(InvasioncoderedsweegyportModEntities.CUCCITA.get(), world);
@@ -55,6 +66,12 @@ public class CuccitaEntity extends TamableAnimal {
     public CuccitaEntity(EntityType<? extends CuccitaEntity> type, Level level) {
         super(type, level);
         this.xpReward = 10;
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_actionState, (byte) 0);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -93,7 +110,7 @@ public class CuccitaEntity extends TamableAnimal {
         targetSelector.addGoal(9, new NearestAttackableTargetGoal<>(
                 this, Monster.class, 10, true, false,
                 enemy -> isTame()
-                        && !(enemy instanceof BrawlerEntity)
+                        && !(enemy instanceof RavagerHunterEntity)
                         && !(enemy instanceof StoneCutterManEntity)
                         && !isAlliedTo(enemy)) {
             @Override
@@ -178,7 +195,7 @@ public class CuccitaEntity extends TamableAnimal {
 
     @Override
     public boolean canAttack(LivingEntity target) {
-        return !(target instanceof BrawlerEntity)
+        return !(target instanceof RavagerHunterEntity)
                 && !(target instanceof StoneCutterManEntity)
                 && super.canAttack(target);
     }
@@ -186,7 +203,7 @@ public class CuccitaEntity extends TamableAnimal {
     @Override
     public boolean hurt(DamageSource source, float amount) {
         if (isTame() && source.getEntity() instanceof Player) return false;
-        if (source.getEntity() instanceof BrawlerEntity
+        if (source.getEntity() instanceof RavagerHunterEntity
                 || source.getEntity() instanceof StoneCutterManEntity) {
             return false;
         }
@@ -196,6 +213,10 @@ public class CuccitaEntity extends TamableAnimal {
     @Override
     public void tick() {
         super.tick();
+        if(level().isClientSide()){
+            simpleFade.tick();
+            return;
+        }
         if (!level().isClientSide() && isOrderedToSit() && getTarget() != null) {
             setTarget(null);
         }
@@ -203,10 +224,36 @@ public class CuccitaEntity extends TamableAnimal {
 
     @Override
     public boolean isAlliedTo(net.minecraft.world.entity.Entity entity) {
-        if (entity instanceof BrawlerEntity || entity instanceof StoneCutterManEntity) {
+        if (entity instanceof RavagerHunterEntity || entity instanceof StoneCutterManEntity) {
             return true;
         }
         return super.isAlliedTo(entity);
+    }
+
+    @Override
+    public float getFadeInTime(float partialTicks) {
+        return simpleFade.getFadeInTime(partialTicks);
+    }
+
+    @Override
+    public float getAnimTicks(float partialTicks) {
+        return simpleFade.getAnimTicks(partialTicks);
+    }
+
+    @Override
+    public int getAnimIndex() {
+        return simpleFade.getAnimIndex();
+    }
+
+    @Override
+    @javax.annotation.Nullable
+    public SimpleFadingOutAnimation getFadingOutAnimation() {
+        return simpleFade.getFadingOutAnimation();
+    }
+
+    @Override
+    public void setFadingOutAnimation(@javax.annotation.Nullable SimpleFadingOutAnimation animation) {
+        simpleFade.setFadingOutAnimation(animation);
     }
 
     @Override

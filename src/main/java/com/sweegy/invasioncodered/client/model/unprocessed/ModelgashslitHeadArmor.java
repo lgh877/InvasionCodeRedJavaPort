@@ -18,7 +18,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 // Made with Blockbench 5.1.3
 // Exported for Minecraft version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
-public class Modelgashslit_head_armor<T extends Entity> extends EntityModel<T> {
+public class ModelgashslitHeadArmor<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in
 	// the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.tryParse("invasioncodered:modelgashslit_head_armor"), "main");
@@ -27,7 +27,7 @@ public class Modelgashslit_head_armor<T extends Entity> extends EntityModel<T> {
     public final ModelPart head;
     public final ModelPart hat;
 
-    public Modelgashslit_head_armor(ModelPart root) {
+    public ModelgashslitHeadArmor(ModelPart root) {
         this.waist = root.getChild("waist");
         this.body = this.waist.getChild("body");
         this.head = this.body.getChild("head");

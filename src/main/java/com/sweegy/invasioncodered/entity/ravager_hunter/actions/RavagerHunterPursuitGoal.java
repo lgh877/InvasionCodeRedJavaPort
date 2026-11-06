@@ -1,16 +1,16 @@
-package com.sweegy.invasioncodered.entity.brawler.actions;
+package com.sweegy.invasioncodered.entity.ravager_hunter.actions;
 
-import com.sweegy.invasioncodered.client.model.animations.indices.BrawlerAnimationIndex;
-import com.sweegy.invasioncodered.entity.brawler.BrawlerEntity;
+import com.sweegy.invasioncodered.client.model.animations.indices.RavagerHunterAnimationIndex;
+import com.sweegy.invasioncodered.entity.ravager_hunter.RavagerHunterEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import java.util.EnumSet;
 
-public class BrawlerPursuitGoal extends Goal {
-    private final BrawlerEntity mob;
+public class RavagerHunterPursuitGoal extends Goal {
+    private final RavagerHunterEntity mob;
     private int recalcPath;
 
-    public BrawlerPursuitGoal(BrawlerEntity mob) {
+    public RavagerHunterPursuitGoal(RavagerHunterEntity mob) {
         this.mob = mob;
         setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
@@ -38,7 +38,7 @@ public class BrawlerPursuitGoal extends Goal {
 
         if (--recalcPath <= 0) {
             recalcPath = 6 + mob.getRandom().nextInt(5);
-            mob.getNavigation().moveTo(target, mob.getActionState() == BrawlerAnimationIndex.anims_aggressive ? 1.5D : 1D);
+            mob.getNavigation().moveTo(target, mob.getActionState() == RavagerHunterAnimationIndex.anims_aggressive ? 1.5D : 1D);
         }
     }
 }

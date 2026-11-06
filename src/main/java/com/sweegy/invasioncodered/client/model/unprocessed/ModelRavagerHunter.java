@@ -14,7 +14,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.EntityModel;
 
-public class Modelbrawler<T extends Entity> extends EntityModel<T> {
+public class ModelRavagerHunter<T extends Entity> extends EntityModel<T> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.tryParse("invasioncodered:brawler"), "main");
     public final ModelPart whole;
@@ -30,7 +30,7 @@ public class Modelbrawler<T extends Entity> extends EntityModel<T> {
     public final ModelPart LeftArm;
     public final ModelPart RightArm;
 
-    public Modelbrawler(ModelPart root) {
+    public ModelRavagerHunter(ModelPart root) {
         this.whole = root.getChild("whole");
         this.bone = this.whole.getChild("bone");
         this.LeftLeg = this.bone.getChild("LeftLeg");

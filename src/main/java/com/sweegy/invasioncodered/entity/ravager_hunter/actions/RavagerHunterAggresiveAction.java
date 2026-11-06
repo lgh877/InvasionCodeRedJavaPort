@@ -1,18 +1,18 @@
-package com.sweegy.invasioncodered.entity.brawler.actions;
+package com.sweegy.invasioncodered.entity.ravager_hunter.actions;
 
-import com.sweegy.invasioncodered.client.model.animations.indices.BrawlerAnimationIndex;
-import com.sweegy.invasioncodered.entity.brawler.BrawlerEntity;
+import com.sweegy.invasioncodered.client.model.animations.indices.RavagerHunterAnimationIndex;
+import com.sweegy.invasioncodered.entity.ravager_hunter.RavagerHunterEntity;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.phys.Vec2;
 
-public class BrawlerAggresiveAction {
-    public static void execute(LevelAccessor world, BrawlerEntity mob, double x, double y, double z) {
+public class RavagerHunterAggresiveAction {
+    public static void execute(LevelAccessor world, RavagerHunterEntity mob, double x, double y, double z) {
         if((mob.tickCount & 15) == 0){
             if(mob.blockAfterMelee){
                 mob.blockAfterMelee = false;
-                mob.setActionState(BrawlerAnimationIndex.anims_block);
+                mob.setActionState(RavagerHunterAnimationIndex.anims_block);
                 mob.nextBlockDuration = mob.getRandom().nextInt(60) + 40;
                 return;
             }
@@ -28,7 +28,7 @@ public class BrawlerAggresiveAction {
                     mob.swing(InteractionHand.MAIN_HAND);
                     mob.blockAfterMelee = mob.getRandom().nextFloat() > 0.7f;
                 }else if(!yVailid || flatDist > minDist + mob.getBbWidth() * 12){
-                    mob.setActionState(BrawlerAnimationIndex.anims_bowwalk);
+                    mob.setActionState(RavagerHunterAnimationIndex.anims_bowwalk);
                     mob.equipBow();
                 }
             }else{

@@ -18,7 +18,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 // Made with Blockbench 5.1.3
 // Exported for Minecraft version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
-public class Modelgashslitdragon<T extends Entity> extends EntityModel<T> {
+public class ModelGashslitDragon<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in
 	// the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.tryParse("invasioncodered:modelgashslitdragon"), "main");
@@ -31,7 +31,7 @@ public class Modelgashslitdragon<T extends Entity> extends EntityModel<T> {
 	public final ModelPart bone5;
 	public final ModelPart bone6;
 
-	public Modelgashslitdragon(ModelPart root) {
+	public ModelGashslitDragon(ModelPart root) {
 		this.whole = root.getChild("whole");
 		this.trueHead = this.whole.getChild("trueHead");
 		this.head = this.trueHead.getChild("head");

@@ -1,27 +1,34 @@
 package com.sweegy.invasioncodered.client.model;
 
-import com.sweegy.invasioncodered.client.model.animations.indices.BrawlerAnimationIndex;
-import com.sweegy.invasioncodered.client.model.base.FadingAnimsModel;
-import com.sweegy.invasioncodered.entity.brawler.BrawlerEntity;
-import net.minecraft.client.model.HierarchicalModel;
+import com.sweegy.invasioncodered.client.model.animations.indices.RavagerHunterAnimationIndex;
+import com.sweegy.invasioncodered.client.model.base.SimpleFadingAnimsModel;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelCuccita;
+import com.sweegy.invasioncodered.entity.cuccita.CuccitaEntity;
 import net.minecraft.client.model.geom.ModelPart;
 
-//public class CuccitaAnimatedModel extends Modelbrawler<BrawlerEntity>{
-//    private final ModelPart root;
-//    public CuccitaAnimatedModel(ModelPart root) {
-//        super(root);
-//        this.root = root;
-//    }
-//    private final HierarchicalModel<BrawlerEntity> animator = new HierarchicalModel<>() {
-//        @Override
-//        public ModelPart root() {
-//            return root;
-//        }
-//
-//        @Override
-//        public void setupAnim(BrawlerEntity entity, float limbSwing, float limbSwingAmount,
-//                              float ageInTicks, float netHeadYaw, float headPitch) {
-//            animateWalk(animations[anim.animIdx], anim.finalTime, weight, 1f, 1f);
-//        }
-//    };
-//}
+public class CuccitaAnimatedModel extends ModelCuccita<CuccitaEntity> {
+    private final ModelPart root;
+    private final ModelPart[] allPartsFlat;
+
+    private final SimpleFadingAnimsModel<CuccitaEntity> animator = new SimpleFadingAnimsModel<>() {
+        @Override
+        public ModelPart root() { return root; }
+
+        @Override
+        public void setupAnim(CuccitaEntity entity, float limbSwing, float limbSwingAmount,
+                              float ageInTicks, float netHeadYaw, float headPitch) {
+            float partialTicks = ageInTicks - entity.tickCount;
+            for (ModelPart part : allPartsFlat) {
+                part.resetPose();
+            }
+            applyFadingAnims(entity, partialTicks, RavagerHunterAnimationIndex.anims);
+        }
+
+    };
+
+    public CuccitaAnimatedModel(ModelPart root) {
+        super(root);
+        this.root = root;
+        this.allPartsFlat = root.getAllParts().toArray(ModelPart[]::new);
+    }
+}

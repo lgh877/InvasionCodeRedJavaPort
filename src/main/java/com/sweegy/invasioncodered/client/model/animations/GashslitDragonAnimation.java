@@ -12,7 +12,7 @@ import net.minecraft.client.animation.AnimationChannel;
  * 
  * @author Author
  */
-public class gashslitdragonAnimation {
+public class GashslitDragonAnimation {
 	public static final AnimationDefinition fly = AnimationDefinition.Builder.withLength(0.25F).looping()
 			.addAnimation("whole", new AnimationChannel(AnimationChannel.Targets.ROTATION, new Keyframe(0.0F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM),
 					new Keyframe(0.125F, KeyframeAnimations.degreeVec(7.5F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM), new Keyframe(0.25F, KeyframeAnimations.degreeVec(0.0F, 0.0F, 0.0F), AnimationChannel.Interpolations.CATMULLROM)))

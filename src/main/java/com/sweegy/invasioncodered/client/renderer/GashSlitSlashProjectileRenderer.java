@@ -11,14 +11,14 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 
 import com.sweegy.invasioncodered.entity.projectile.GashSlitSlashProjectileEntity;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit_slash;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelGashslitSlash;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 public class GashSlitSlashProjectileRenderer extends EntityRenderer<GashSlitSlashProjectileEntity> {
     private static final ResourceLocation texture = ResourceLocation.tryParse("invasioncodered:textures/entities/gashslit_slash.png");
-	private final Modelgashslit_slash model;
+	private final ModelGashslitSlash model;
 
 	protected int getBlockLightLevel(Blaze p_113910_, BlockPos p_113911_) {
 		return 15;
@@ -26,7 +26,7 @@ public class GashSlitSlashProjectileRenderer extends EntityRenderer<GashSlitSlas
 
 	public GashSlitSlashProjectileRenderer(EntityRendererProvider.Context context) {
 		super(context);
-		model = new Modelgashslit_slash(context.bakeLayer(Modelgashslit_slash.LAYER_LOCATION));
+		model = new ModelGashslitSlash(context.bakeLayer(ModelGashslitSlash.LAYER_LOCATION));
 	}
 
 	@Override

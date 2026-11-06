@@ -1,10 +1,10 @@
 {
   "entity.invasioncodered.gashslit": "Gashslit",
   "entity.invasioncodered.stone_cutter_man": "Stonecutter Man",
-  "entity.invasioncodered.brawler": "Brawler",
+  "entity.invasioncodered.ravager_hunter": "Ravager Hunter",
   "item.invasioncodered.gashslit_spawn_egg": "Gashslit Spawn Egg",
   "item.invasioncodered.stonecutterman_spawn_egg": "Stonecutter Man Spawn Egg",
-  "item.invasioncodered.brawler_spawn_egg": "Brawler Spawn Egg",
+  "item.invasioncodered.ravager_hunter_spawn_egg": "Ravager Hunter Spawn Egg",
   "subtitles.invasioncodered.gash_hurt": "Gashslit hurt",
   "subtitles.invasioncodered.gash_idle": "Gashslit breathes",
   "subtitles.invasioncodered.gash_slice": "Gashslit slashes",

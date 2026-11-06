@@ -1,7 +1,7 @@
 package com.sweegy.invasioncodered.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelstonecutterman;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelStonecutterMan;
 import com.sweegy.invasioncodered.client.model.StoneCutterManAnimatedModel;
 import com.sweegy.invasioncodered.client.renderer.layer.HierachicalHeadLayer;
 import com.sweegy.invasioncodered.entity.stonecutterman.StoneCutterManEntity;
@@ -15,7 +15,7 @@ public class StoneCutterManRenderer extends MobRenderer<StoneCutterManEntity, St
     private static final ResourceLocation entityTexture2 = ResourceLocation.tryParse("invasioncodered:textures/entities/stonecutterman_saw2.png");
 
     public StoneCutterManRenderer(EntityRendererProvider.Context context) {
-        super(context, new StoneCutterManAnimatedModel(context.bakeLayer(Modelstonecutterman.LAYER_LOCATION)), 0.5f);
+        super(context, new StoneCutterManAnimatedModel(context.bakeLayer(ModelStonecutterMan.LAYER_LOCATION)), 0.5f);
         addLayer(new HierachicalHeadLayer<>(this, context.getModelSet(), context.getItemInHandRenderer()));
     }
 

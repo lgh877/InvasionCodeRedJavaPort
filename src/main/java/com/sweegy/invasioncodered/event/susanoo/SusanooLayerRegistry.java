@@ -2,7 +2,7 @@ package com.sweegy.invasioncodered.event.susanoo;
 
 import com.mojang.logging.LogUtils;
 import com.sweegy.invasioncodered.InvasioncoderedsweegyportMod;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelsusanogashslit;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelSusanoGashslit;
 import com.sweegy.invasioncodered.client.renderer.layer.GlobalSusanooLayer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.world.entity.EntityType;
@@ -25,7 +25,7 @@ public class SusanooLayerRegistry {
     @SubscribeEvent
     @SuppressWarnings({"rawtypes", "unchecked"})
     public static void onAddLayers(EntityRenderersEvent.AddLayers event) {
-        Modelsusanogashslit<LivingEntity> sharedModel = new Modelsusanogashslit<>(event.getContext().bakeLayer(Modelsusanogashslit.LAYER_LOCATION));
+        ModelSusanoGashslit<LivingEntity> sharedModel = new ModelSusanoGashslit<>(event.getContext().bakeLayer(ModelSusanoGashslit.LAYER_LOCATION));
         Set<LivingEntityRenderer<?, ?>> processed = Collections.newSetFromMap(new IdentityHashMap<>());
         for (EntityType<?> type : ForgeRegistries.ENTITY_TYPES) {
             LivingEntityRenderer renderer;
@@ -46,7 +46,7 @@ public class SusanooLayerRegistry {
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    private static void addLayer(LivingEntityRenderer renderer, Modelsusanogashslit<LivingEntity> sharedModel, Set<LivingEntityRenderer<?, ?>> processed, String key) {
+    private static void addLayer(LivingEntityRenderer renderer, ModelSusanoGashslit<LivingEntity> sharedModel, Set<LivingEntityRenderer<?, ?>> processed, String key) {
         if (renderer == null || !processed.add(renderer)) {
             return;
         }

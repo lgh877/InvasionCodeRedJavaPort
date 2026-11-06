@@ -18,7 +18,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 // Made with Blockbench 5.1.3
 // Exported for Minecraft version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
-public class Modelgashslit_boots<T extends Entity> extends EntityModel<T> {
+public class ModelGashslitBoots<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in
 	// the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.tryParse("invasioncodered:modelgashslit_boots"), "main");
@@ -27,7 +27,7 @@ public class Modelgashslit_boots<T extends Entity> extends EntityModel<T> {
 	public final ModelPart RightLeg;
 	public final ModelPart LeftLeg;
 
-	public Modelgashslit_boots(ModelPart root) {
+	public ModelGashslitBoots(ModelPart root) {
 		this.waist = root.getChild("waist");
 		this.Body = this.waist.getChild("Body");
 		this.RightLeg = this.Body.getChild("RightLeg");

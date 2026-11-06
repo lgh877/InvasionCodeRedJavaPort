@@ -1,6 +1,6 @@
 package com.sweegy.invasioncodered.init;
 
-import com.sweegy.invasioncodered.entity.brawler.BrawlerEntity;
+import com.sweegy.invasioncodered.entity.ravager_hunter.RavagerHunterEntity;
 import com.sweegy.invasioncodered.entity.cuccita.CuccitaEntity;
 import com.sweegy.invasioncodered.entity.stonecutterman.StoneCutterManEntity;
 import net.minecraftforge.registries.RegistryObject;
@@ -31,8 +31,8 @@ public class InvasioncoderedsweegyportModEntities {
     public static final RegistryObject<EntityType<StoneCutterManEntity>> STONE_CUTTER_MAN = register("stone_cutter_man",
 			EntityType.Builder.<StoneCutterManEntity>of(StoneCutterManEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(StoneCutterManEntity::new)
 					.sized(0.7f, 1.9f));
-    public static final RegistryObject<EntityType<BrawlerEntity>> BRAWLER = register("brawler",
-			EntityType.Builder.<BrawlerEntity>of(BrawlerEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(BrawlerEntity::new)
+    public static final RegistryObject<EntityType<RavagerHunterEntity>> RAVAGER_HUNTER = register("ravager_hunter",
+			EntityType.Builder.<RavagerHunterEntity>of(RavagerHunterEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(RavagerHunterEntity::new)
 					.sized(0.7f, 1.9f));
     public static final RegistryObject<EntityType<CuccitaEntity>> CUCCITA = register("cuccita",
 			EntityType.Builder.<CuccitaEntity>of(CuccitaEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3).setCustomClientFactory(CuccitaEntity::new)
@@ -68,6 +68,6 @@ public class InvasioncoderedsweegyportModEntities {
 		event.put(GASHSLIT.get(), GashslitEntity.createAttributes().build());
 		event.put(GASHSLIT_DRAGON.get(), GashslitDragonEntity.createAttributes().build());
 		event.put(STONE_CUTTER_MAN.get(), StoneCutterManEntity.createAttributes().build());
-		event.put(BRAWLER.get(), BrawlerEntity.createAttributes().build());
+		event.put(RAVAGER_HUNTER.get(), RavagerHunterEntity.createAttributes().build());
 	}
 }

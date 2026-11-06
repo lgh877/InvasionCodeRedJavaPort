@@ -2,9 +2,9 @@ package com.sweegy.invasioncodered.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.sweegy.invasioncodered.client.model.animations.indices.StoneCutterManAnimationIndex;
-import com.sweegy.invasioncodered.client.model.animations.stonecuttermanAnimation;
+import com.sweegy.invasioncodered.client.model.animations.StonecutterManAnimation;
 import com.sweegy.invasioncodered.client.model.base.FadingAnimsModel;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelstonecutterman;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelStonecutterMan;
 import com.sweegy.invasioncodered.client.renderer.layer.IHierachicalHeadedModel;
 import com.sweegy.invasioncodered.config.InvasionCodeRedConfig;
 import com.sweegy.invasioncodered.entity.stonecutterman.StoneCutterManEntity;
@@ -16,7 +16,7 @@ import net.minecraft.util.Mth;
 
 import java.util.List;
 
-public class StoneCutterManAnimatedModel extends Modelstonecutterman<StoneCutterManEntity> implements IHierachicalHeadedModel {
+public class StoneCutterManAnimatedModel extends ModelStonecutterMan<StoneCutterManEntity> implements IHierachicalHeadedModel {
     public final ModelPart root;
     private final ModelPart[] allPartsFlat;
 
@@ -34,7 +34,7 @@ public class StoneCutterManAnimatedModel extends Modelstonecutterman<StoneCutter
             }
 
             //float legAnimTicks = entity.getLegAnimTicks(partialTicks) * 0.2f;
-            animateWalk(stonecuttermanAnimation.runningpose, 1, Mth.lerp(ageInTicks - entity.tickCount, entity.sprintTickO, entity.sprintTick) * 0.2f, 1f, 1f);
+            animateWalk(StonecutterManAnimation.runningpose, 1, Mth.lerp(ageInTicks - entity.tickCount, entity.sprintTickO, entity.sprintTick) * 0.2f, 1f, 1f);
             applyFadingAnims(entity, partialTicks, StoneCutterManAnimationIndex.anims);
 
 

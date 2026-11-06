@@ -18,7 +18,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 // Made with Blockbench 5.1.3
 // Exported for Minecraft version 1.17 or later with Mojang mappings
 // Paste this class into your mod and generate all required imports
-public class Modelsusanogashslit<T extends Entity> extends EntityModel<T> {
+public class ModelSusanoGashslit<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in
 	// the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.tryParse("invasioncodered:modelsusanogashslit"), "main");
@@ -39,7 +39,7 @@ public class Modelsusanogashslit<T extends Entity> extends EntityModel<T> {
 	public final ModelPart leftArm;
 	public final ModelPart leftItemLayer;
 
-	public Modelsusanogashslit(ModelPart root) {
+	public ModelSusanoGashslit(ModelPart root) {
 		this.whole = root.getChild("whole");
 		this.torso = this.whole.getChild("torso");
 		this.robes = this.torso.getChild("robes");

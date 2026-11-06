@@ -11,7 +11,7 @@ import net.minecraft.client.animation.AnimationChannel;
  * Exported for Minecraft version 1.19 or later with Mojang mappings
  * @author Author
  */
-public class stonecuttermanAnimation {
+public class StonecutterManAnimation {
     public static final AnimationDefinition dead = AnimationDefinition.Builder.withLength(0.0F).looping()
             .addAnimation("LeftLeg", new AnimationChannel(AnimationChannel.Targets.ROTATION,
                     new Keyframe(0.0F, KeyframeAnimations.degreeVec(-87.5773F, -14.7317F, -0.9691F), AnimationChannel.Interpolations.LINEAR)

@@ -15,7 +15,7 @@ import net.minecraft.client.model.EntityModel;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-public class Modelrampager<T extends Entity> extends EntityModel<T> {
+public class ModelRampager<T extends Entity> extends EntityModel<T> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.tryParse("invasioncodered:rampager"), "main");
     public final ModelPart whole;
     public final ModelPart right_leg;
@@ -34,7 +34,7 @@ public class Modelrampager<T extends Entity> extends EntityModel<T> {
     public final ModelPart bone4;
     public final ModelPart bone3;
 
-    public Modelrampager(ModelPart root) {
+    public ModelRampager(ModelPart root) {
         this.whole = root.getChild("whole");
         this.right_leg = this.whole.getChild("right_leg");
         this.left_leg = this.whole.getChild("left_leg");

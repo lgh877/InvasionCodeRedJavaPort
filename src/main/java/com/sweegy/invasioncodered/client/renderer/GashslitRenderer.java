@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.MultiBufferSource;
 
 import com.sweegy.invasioncodered.entity.gashslit.GashslitEntity;
-import com.sweegy.invasioncodered.client.model.unprocessed.Modelgashslit;
+import com.sweegy.invasioncodered.client.model.unprocessed.ModelGashslit;
 import com.sweegy.invasioncodered.client.renderer.layer.HierachicalHeadLayer;
 import com.sweegy.invasioncodered.client.renderer.layer.GashslitSwordParticleLayer;
 import com.sweegy.invasioncodered.client.renderer.layer.GashslitSusanooLayer;
@@ -25,7 +25,7 @@ public class GashslitRenderer extends MobRenderer<GashslitEntity, GashslitAnimat
     private static final ResourceLocation entityTexture2 = ResourceLocation.tryParse("invasioncodered:textures/entities/nothing.png");
 
 	public GashslitRenderer(EntityRendererProvider.Context context) {
-		super(context, new GashslitAnimatedModel(context.bakeLayer(Modelgashslit.LAYER_LOCATION)), 0.5f);
+		super(context, new GashslitAnimatedModel(context.bakeLayer(ModelGashslit.LAYER_LOCATION)), 0.5f);
 		this.addLayer(new RenderLayer<GashslitEntity, GashslitAnimatedModel>(this) {
             static final ResourceLocation LAYER_TEXTURE = ResourceLocation.tryParse("invasioncodered:textures/entities/gashslit_glow.png");
 
